@@ -357,6 +357,18 @@ h2.title{font-family:var(--serif);font-weight:500;font-size:clamp(32px,4.2vw,54p
 .brand-quote small{display:block;margin-top:12px;font-family:var(--sans);font-style:normal;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-soft)}
 @media(max-width:900px){.brand-grid{grid-template-columns:1fr;gap:46px}}
 
+/* ── A MARCA · refinamentos visuais ── */
+#marca h2.title{line-height:1.2}
+#marca h2.title em{font-style:italic;color:var(--gold-2);font-weight:inherit}
+#marca .lead{margin-top:26px;max-width:560px;line-height:1.88}
+#marca .brand-quote{margin-top:42px;line-height:1.65}
+#marca .brand-quote small{color:var(--gold-2);font-weight:600;letter-spacing:4px;margin-top:20px}
+#marca .brand-photo img{object-position:top center;box-shadow:0 18px 50px rgba(22,48,42,.1),0 4px 12px rgba(22,48,42,.05)}
+@media(max-width:700px){
+  #marca .lead{line-height:1.82}
+  #marca .brand-quote{font-size:17px;margin-top:30px}
+}
+
 /* ══════════ PILARES ══════════ */
 .pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:60px}
 .pillar{border:1px solid rgba(184,137,74,.35);border-radius:8px;padding:44px 34px;
@@ -758,17 +770,16 @@ section{scroll-margin-top:76px}
 <!-- A MARCA / HISTÓRIA -->
 <section id="marca">
   <div class="wrap brand-grid">
-    <div class="brand-photo fade"><img src="img/leben-03-720.jpg"
-      srcset="img/leben-03-480.jpg 480w, img/leben-03-720.jpg 720w, img/leben-03.jpg 960w"
+    <div class="brand-photo fade"><img src="img/Bruna_Cardeal.jpeg"
       sizes="(max-width:900px) 88vw, 44vw" width="720" height="960"
-      alt="Armação de grau Leben" loading="lazy"></div>
+      alt="Bruna Cardeal — Fundadora Leben Eyewear" loading="lazy"></div>
     <div>
       <div class="eyebrow fade">Nossa história</div>
-      <h2 class="title fade">Leben significa <em style="font-style:italic;color:var(--gold-2)">vida</em>, em alemão. E nasceu de quem vive o mercado óptico todos os dias.</h2>
-      <p class="lead fade">Como proprietária de uma ótica, nossa fundadora sentiu na prática a dificuldade de encontrar uma marca que reunisse <strong>qualidade, design, tendências e excelente custo-benefício</strong> — sem exigir altos investimentos nem processos burocráticos de pós-venda. E percebeu que muitos lojistas enfrentavam os mesmos desafios. Foi dessa necessidade que surgiu a Leben.</p>
-      <p class="lead fade">Mais do que produtos, oferecemos uma <strong>parceria baseada em confiança, agilidade e suporte estratégico</strong>: auxiliamos cada parceiro a identificar o perfil ideal de produtos da sua loja, com reposição de estoque assertiva e alinhada às preferências dos seus clientes — e <strong>materiais de marketing sem custo adicional</strong> para fortalecer as vendas no ponto de venda. O sucesso dos nossos lojistas é também o nosso.</p>
-      <div class="brand-quote fade">“Eu criei a Leben para ser o fornecedor que eu sempre quis ter na minha própria ótica.”
-        <small>Bruna Braun Cardeal — Fundadora</small>
+      <h2 class="title fade">A Leben nasceu da <em>experiência real</em> de quem vive o mercado óptico todos os dias.</h2>
+      <p class="lead fade">Nossa fundadora é proprietária de uma ótica e conhece exatamente os desafios enfrentados pelos lojistas: fornecedores com suporte burocrático, prazos para entrega dos produtos, investimentos altos e margens cada vez menores.</p>
+      <p class="lead fade">Por isso criamos uma marca diferente. Uma marca construída para entregar design, qualidade, suporte comercial e uma experiência completa para o lojista e para o consumidor final.</p>
+      <div class="brand-quote fade">Porque vender óculos vai muito além de vender uma armação.<br>É entregar confiança. É criar desejo. É construir relacionamento.
+        <small>LEBEN EYEWEAR</small>
       </div>
     </div>
   </div>
@@ -904,7 +915,7 @@ section{scroll-margin-top:76px}
         <div class="kit-item fade"><div class="kd">I.</div><div><h4>Estojo diferenciado</h4><p>Acabamento premium na identidade Leben, feito para ficar bonito em cima do balcão.</p></div></div>
         <div class="kit-item fade"><div class="kd">II.</div><div><h4>Flanela de microfibra peruana</h4><p>Toque e qualidade que o cliente percebe na hora — e lembra da sua loja toda vez que limpa as lentes.</p></div></div>
         <div class="kit-item fade"><div class="kd">III.</div><div><h4>Certificado de garantia de 1 ano</h4><p>Documento físico e numerado, com o selo Leben Garante. Troca ágil e sem burocracia.</p></div></div>
-        <div class="kit-item fade"><div class="kd">IV.</div><div><h4>Kit de Postagem</h4><p>Fotos profissionais e artes prontas no Google Drive para você divulgar no Instagram da sua ótica sem gastar nada com marketing.</p></div></div>
+        <div class="kit-item fade"><div class="kd">IV.</div><div><h4>Agulha nas hastes</h4><p>Armações com sustentação e segurança para ajustes.</p></div></div>
       </div>
     </div>
     <div class="kit-photo fade"><img src="img/leben-04-720.jpg"
@@ -943,7 +954,7 @@ section{scroll-margin-top:76px}
           <input type="text" id="lpCidade" placeholder="Cidade da sua ótica" autocomplete="address-level2" autocapitalize="words" enterkeyhint="next" required>
           <input type="tel" id="lpFone" placeholder="WhatsApp com DDD" autocomplete="tel" inputmode="tel" enterkeyhint="send" required>
           <button type="submit" class="mbtn"><span class="mbtn-face">Quero ser ótica parceira</span></button>
-          <div class="lp-note">Resposta em até 24h · Sem pedido mínimo · Você fala direto com a fundadora</div>
+          <div class="lp-note">Resposta em até 24h · Sem pedido mínimo · Experiência satisfatória para o lojista e o cliente final.</div>
         </form>
       </div>
       <div class="lp-photo" aria-hidden="true">
