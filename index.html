@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" imagesrcset="img/leben-07-480.webp 480w, img/leben-07-720.webp 720w" imagesizes="(max-width:900px) 46vw, 24vw">
+<link rel="preload" as="image" href="img/fotos/FOTO_FEMININA1.jpg">
 <style>
 :root{
   --green:#12342D; --green-2:#0E2A25; --green-3:#1A473D;
@@ -190,7 +190,8 @@ body.menu-lock{overflow:hidden}
   100%{transform:translate3d(20px,8px,0)}}
 @media (prefers-reduced-motion:reduce){
   .hero-glow i,.hero-ring,.hero-mark{animation:none}}
-@media(max-width:900px){.hero-ring,.hero-mark{display:none}}
+@media(max-width:599px){.hero-ring,.hero-mark{display:none}}
+@media(min-width:600px) and (max-width:900px){.hero-ring{display:none}}
 .hero-tag{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:999px;
   border:1px solid rgba(184,137,74,.5);background:rgba(255,253,246,.6);
   font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-2);margin-bottom:24px}
@@ -209,6 +210,7 @@ body.menu-lock{overflow:hidden}
 .hg-cell{border-radius:18px;overflow:hidden;position:relative;
   border:1px solid rgba(184,137,74,.45);box-shadow:0 20px 48px rgba(22,48,42,.18)}
 .hg-cell img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+.hg-col:first-child .hg-cell:nth-child(2) img{object-position:center 0%}
 .hg-cell:hover img{transform:scale(1.05)}
 .hg-cell::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(14,42,37,.16),transparent 45%)}
 .hg-cell.tall{height:330px}
@@ -221,27 +223,41 @@ body.menu-lock{overflow:hidden}
 .hero.on .hg-col:last-child .hg-cell:nth-child(1){transition-delay:.65s}
 .hero.on .hg-col:last-child .hg-cell:nth-child(2){transition-delay:.8s}
 @media(max-width:900px){
-  /* composição editorial: título → carrossel baixo → CTA (tudo em ~1 tela) */
   .hero{display:flex;flex-direction:column;gap:0;
-    padding:92px 0 clamp(36px,9vw,52px);min-height:100svh;justify-content:center;text-align:left}
-  .hero-copy,.hero-ctablock{padding:0 7vw}
+    padding:76px 0 clamp(36px,9vw,52px);min-height:100svh;justify-content:center;text-align:left}
+  .hero-copy{order:1;padding:0 7vw}
+  .hero-gallery{order:2;margin-top:clamp(22px,6vw,32px);display:flex;gap:12px;overflow-x:auto;
+    padding:4px 7vw 18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(to right,black 82%,transparent 100%);
+    mask-image:linear-gradient(to right,black 82%,transparent 100%)}
+  .hero-gallery::-webkit-scrollbar{display:none}
+  .hero-ctablock{order:3;padding:0 7vw;margin-top:clamp(20px,5vw,28px)}
   .hero-tag{margin-bottom:16px}
   .hero h1{font-size:clamp(30px,8.4vw,40px);line-height:1.14;padding:0}
-  .hero-gallery{margin-top:clamp(22px,6vw,32px);display:flex;gap:12px;overflow-x:auto;
-    padding:4px 7vw 14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .hero-gallery::-webkit-scrollbar{display:none}
   .hg-col{display:contents}
   .hg-col:last-child{padding-top:0}
-  /* cards ~45% menores: banda editorial, não parede de foto */
-  .hg-cell{flex:0 0 min(46vw,190px);scroll-snap-align:start;border-radius:14px;
+  .hg-cell{flex:0 0 min(75vw,280px);scroll-snap-align:start;border-radius:14px;
     box-shadow:0 8px 22px rgba(22,48,42,.12)}
-  .hg-cell.tall,.hg-cell.short{height:auto;aspect-ratio:4/5}
-  .hero-ctablock{margin-top:clamp(20px,5vw,28px)}
+  .hg-cell.tall,.hg-cell.short{height:auto;aspect-ratio:3/4}
   .hero-feats{justify-content:flex-start;gap:10px;font-size:9.5px;letter-spacing:1.8px}
   .hero-ctas{flex-direction:column;align-items:stretch;gap:12px;margin-top:18px;padding:0}
-  .hero-ctas .mbtn,.hero-ctas .lbtn{width:100%;justify-content:center;min-height:60px}
-  .hero-ctas .mbtn-face{width:100%;justify-content:center;min-height:56px}
-  .hg-cell{opacity:1;transform:none;transition:none}
+  .hero-ctas .mbtn{display:block;width:100%;min-height:60px}
+  .hero-ctas .mbtn-face{display:flex;width:100%;justify-content:center;min-height:56px}
+  .hero-ctas .lbtn{display:flex;width:100%;justify-content:center;min-height:60px}
+  .hg-cell{transform:translateY(20px)}
+  .hero.on .hg-cell{transition:opacity .7s ease,transform .7s ease}
+}
+@media(min-width:600px) and (max-width:900px){
+  .hero{padding:100px 0 clamp(48px,8vw,64px)}
+  .hero-copy,.hero-ctablock{padding:0 6vw}
+  .hero-gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px;overflow-x:visible;
+    padding:0 6vw;-webkit-mask-image:none;mask-image:none}
+  .hg-col{display:flex;flex-direction:column;gap:16px}
+  .hg-col:last-child{padding-top:44px}
+  .hg-cell{flex:none;width:100%;scroll-snap-align:unset}
+  .hero-ctas .mbtn{display:block;width:100%;min-height:60px}
+  .hero-ctas .mbtn-face{display:flex;width:100%;justify-content:center;min-height:56px}
+  .hero-ctas .lbtn{display:flex;width:100%;justify-content:center;min-height:60px}
 }
 @keyframes drip{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 .hero .rise{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
@@ -727,20 +743,16 @@ section{scroll-margin-top:76px}
   <div class="hero-gallery">
     <div class="hg-col">
       <div class="hg-cell tall"><picture>
-        <source type="image/webp" srcset="img/leben-07-480.webp 480w, img/leben-07-720.webp 720w, img/leben-07.webp 960w" sizes="(max-width:900px) 46vw, 24vw">
-        <img src="img/leben-07-720.jpg" srcset="img/leben-07-480.jpg 480w, img/leben-07-720.jpg 720w" sizes="(max-width:900px) 46vw, 24vw"
+        <img src="img/fotos/FOTO_FEMININA1.jpg"
           width="720" height="960" fetchpriority="high" alt="Óculos solar Leben navigator"></picture></div>
       <div class="hg-cell short"><picture>
-        <source type="image/webp" srcset="img/leben-05-480.webp 480w, img/leben-05-720.webp 720w" sizes="(max-width:900px) 46vw, 24vw">
-        <img src="img/leben-05-720.jpg" width="720" height="960" loading="lazy" alt="Clip-on Leben 2 em 1"></picture></div>
+        <img src="img/fotos/FOTO_MASCULINO.jpg" width="720" height="960" loading="lazy" alt="Clip-on Leben 2 em 1"></picture></div>
     </div>
     <div class="hg-col">
       <div class="hg-cell short"><picture>
-        <source type="image/webp" srcset="img/leben-03-480.webp 480w, img/leben-03-720.webp 720w" sizes="(max-width:900px) 46vw, 24vw">
-        <img src="img/leben-03-720.jpg" width="720" height="960" loading="lazy" alt="Armação de grau Leben"></picture></div>
+        <img src="img/fotos/FOTO_FEMININA3.JPG" width="720" height="960" loading="lazy" alt="Armação de grau Leben"></picture></div>
       <div class="hg-cell tall"><picture>
-        <source type="image/webp" srcset="img/leben-01-480.webp 480w, img/leben-01-720.webp 720w" sizes="(max-width:900px) 46vw, 24vw">
-        <img src="img/leben-01-720.jpg" width="720" height="960" loading="lazy" alt="Solar Leben gateado"></picture></div>
+        <img src="img/fotos/IMG_8610.png" width="720" height="960" loading="lazy" alt="Solar Leben gateado"></picture></div>
     </div>
   </div>
 </header>
@@ -1073,7 +1085,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll('.fade').forEach(el=>io.observe(el));
 
 /* ══════════ FAN CAROUSEL ══════════ */
-const FAN_IMGS=['img/leben-01-720.jpg','img/leben-02-720.jpg','img/leben-03-720.jpg','img/leben-04-720.jpg','img/leben-05-720.jpg','img/leben-06-720.jpg','img/leben-07-720.jpg'];
+const FAN_IMGS=['img/fotos/Carrossel1.jpg','img/fotos/Carrossel2.jpg','img/fotos/Carrossel3.jpg','img/fotos/Carrossel4.jpg','img/fotos/Carrossel5.jpg','img/fotos/Carrossel6.jpg','img/fotos/Carrossel7.jpg'];
 const stage=document.getElementById('fanStage');
 let active=0,fanTimer;
 const cards=FAN_IMGS.map((src,i)=>{
