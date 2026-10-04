@@ -359,6 +359,49 @@ body.lock{overflow:hidden}
 .print-cta b{display:block;font-family:var(--serif);font-size:20pt;font-weight:500;margin-bottom:2mm}
 .print-cta p{font-size:9.5pt;line-height:1.7;color:var(--ink-soft)}
 .print-cta a{color:var(--gold-2);font-weight:500}
+
+/* ══ LEBEN ATELIÊ — capítulo em destaque ══ */
+.chip-new{color:var(--ink)}
+.chip-new b{font-weight:600;font-size:8.5px;letter-spacing:1.5px;background:var(--green-2);color:var(--gold-3);padding:3px 7px;border-radius:999px;margin-right:7px;vertical-align:1px}
+.chapter.featured{background:var(--green-2);color:var(--cream);padding:clamp(80px,11vw,140px) 0 clamp(80px,10vw,130px);margin-top:clamp(40px,6vw,70px);position:relative;overflow:hidden}
+.chapter.featured::before{content:'';position:absolute;left:50%;top:-20%;width:120vmin;height:120vmin;transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(210,168,92,.12),transparent 62%);pointer-events:none}
+.chapter.featured .wrap{position:relative}
+.ft-head{text-align:center;max-width:820px;margin:0 auto}
+.ft-head .eyebrow{justify-content:center;color:#E8C886}
+.ft-head .eyebrow::after{content:'';width:34px;height:1px;background:currentColor}
+.ft-num{font-family:var(--serif);font-size:clamp(16px,1.6vw,20px);letter-spacing:6px;color:var(--gold);margin-top:26px}
+.ft-head h2{font-family:var(--serif);font-weight:500;font-size:clamp(56px,9vw,128px);line-height:.95;margin:10px 0 24px;color:var(--cream);letter-spacing:-.5px}
+.ft-head h2 em{color:#E8C886}
+.ft-head p{font-size:clamp(15px,1.3vw,17px);line-height:1.85;color:#D7DED9;max-width:640px;margin:0 auto}
+.ft-hl{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 0;margin-top:30px}
+.ft-hl li{font-size:10.5px;letter-spacing:2.6px;text-transform:uppercase;color:var(--cream);font-weight:500;padding:0 18px}
+.ft-hl li+li{border-left:1px solid rgba(232,200,134,.45)}
+.ft-tri{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:clamp(12px,1.8vw,24px);align-items:center;margin:clamp(50px,7vw,90px) 0 clamp(50px,7vw,80px)}
+.ft-tri figure{border-radius:4px;overflow:hidden;background:#E9E3D8;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.ft-tri figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.6s var(--ease)}
+.ft-tri figure:hover img{transform:scale(1.04)}
+.ft-tri figure:nth-child(1),.ft-tri figure:nth-child(3){aspect-ratio:3/4}
+.ft-tri figure:nth-child(2){aspect-ratio:4/5;transform:translateY(-18px)}
+.ft-sub{display:flex;align-items:center;gap:18px;margin-bottom:clamp(30px,4vw,46px);font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:#E8C886;font-weight:500}
+.ft-sub i{flex:1;height:1px;background:rgba(232,200,134,.35)}
+.ft-sub span:last-child{color:var(--mist)}
+.chapter.featured .grid{gap:clamp(22px,2.6vw,36px) clamp(14px,2vw,26px)}
+.chapter.featured .p-media{border-radius:3px;box-shadow:0 18px 40px rgba(0,0,0,.28);aspect-ratio:1/1}
+.chapter.featured .p-media img{object-position:center 48%}
+.chapter.featured .p-code{background:var(--green-2);color:#E8C886}
+.chapter.featured .p-info h3{color:var(--cream)}
+.chapter.featured .p-info p{color:#B9C6C0}
+.chapter.featured .pick{border-color:rgba(232,200,134,.6);color:#E8C886}
+.chapter.featured .pick:hover{background:rgba(232,200,134,.1);border-color:#E8C886}
+.chapter.featured .pick.on{background:#E8C886;border-color:#E8C886;color:var(--green-2)}
+@media(max-width:860px){
+  .ft-tri{grid-template-columns:1fr 1fr}
+  .ft-tri figure:nth-child(2){grid-column:1/-1;grid-row:1;aspect-ratio:16/11;transform:none}
+  .ft-hl li{padding:0 12px;font-size:9.5px;letter-spacing:2px}
+  .ft-sub span:last-child{display:none}
+}
+.chapter.featured + .chapter{padding-top:clamp(80px,11vw,140px)}
 /* ══ IMPRESSÃO / PDF ══ */
 @media print{
   @page{size:A4;margin:0}
@@ -366,6 +409,27 @@ body.lock{overflow:hidden}
   html{background:#F7F2E7}
   body{background:#F7F2E7;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .cover::after,.p-media::after{display:none!important}
+  .chapter.featured{padding:26mm 0 0!important;margin:0;min-height:594mm;page-break-after:always}
+  .ft-tri{grid-template-columns:1fr 1.25fr 1fr!important;margin:14mm 0 0!important;gap:5mm!important}
+  .ft-tri figure:nth-child(2){grid-column:auto!important;grid-row:auto!important;aspect-ratio:4/5!important;transform:translateY(-6mm)!important}
+  .ft-tri figure:nth-child(1),.ft-tri figure:nth-child(3){aspect-ratio:3/4!important}
+  .ft-sub{page-break-before:always;break-before:page;padding-top:16mm}
+  .chapter.featured .grid{gap:6mm 5mm!important}
+  .chapter.featured[data-line=atelie] .grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:7mm 6mm!important}
+  .chapter.featured[data-line=atelie] .p-info h3{font-size:14pt!important;color:#F3EDD3!important}
+  .chapter.featured[data-line=atelie] .p-info p{color:#B9C6C0!important;font-size:7.5pt!important}
+  .chapter.featured::before{display:none}
+  .ft-head h2{font-size:64pt;margin:4mm 0 6mm}
+  .ft-head p{font-size:10pt;max-width:150mm}
+  .ft-num{margin-top:4mm}
+  .ft-hl{margin-top:4mm}.ft-hl li{font-size:7pt}
+  .ft-tri{margin:8mm 0 8mm;gap:4mm}
+  .ft-tri figure{box-shadow:none}
+  .ft-tri figure:nth-child(2){transform:none}
+  .ft-sub{margin-bottom:5mm;font-size:7pt}
+  .chapter.featured .p-media{box-shadow:none;aspect-ratio:1/1!important}
+  .chapter.featured + .chapter{padding-top:14mm!important}
+  .chapter.featured .p-code{background:#0E2A25!important}
   .p-code{background:#FFFDF6!important;backdrop-filter:none!important}
   .kit-photo .seal{filter:none!important}
   .cover .cover-in{padding-bottom:22mm}
@@ -440,10 +504,11 @@ body.lock{overflow:hidden}
   <div class="cover-in">
     <div class="eyebrow rise">Coleção 2026 · Para óticas parceiras</div>
     <h1 class="rise">O catálogo<br><em>Leben</em> Eyewear</h1>
-    <p class="rise">Solares, armações de grau, Clip On, Kids e a nova linha Ateliê — peças desenhadas para despertar desejo no balcão da sua ótica. Garantia certificada de 1 ano e <strong style="color:#E8C886;font-weight:600">mais de 400 modelos à pronta entrega</strong> na mala de visitas.</p>
+    <p class="rise">A nova linha <em style="color:#E8C886">Ateliê</em>, solares, armações de grau, Clip On e Kids — peças desenhadas para despertar desejo no balcão da sua ótica. Garantia certificada de 1 ano e <strong style="color:#E8C886;font-weight:600">mais de 400 modelos à pronta entrega</strong> na mala de visitas.</p>
     <div class="cover-ctas rise">
-      <a class="mbtn" href="#colecao"><span>Explorar a coleção</span></a>
-      <a class="gbtn" href="#como-pedir">Como fazer o pedido</a>
+      <a class="mbtn" href="#linha-atelie"><span>Conhecer o Ateliê</span></a>
+      <a class="gbtn" href="#colecao">Toda a coleção</a>
+
     </div>
   </div>
   <div class="cover-meta"><b>+400</b>peças à pronta entrega<br>na mala de visitas</div>
@@ -640,16 +705,16 @@ body.lock{overflow:hidden}
    ════════════════════════════════════════════════════════════ */
 const WHATS='5551920038264';
 const LINES=[
-  {id:'sol',  n:'I',  name:'Sol',  title:'Leben <em>Sol</em>',  img:'monaco-1', pos:'center 30%',
+  {id:'atelie', n:'I', featured:true, kicker:'Novidade · Coleção 2026', triptych:['g19-3','g16-2','g18-2'], highlights:['Detalhes em joia','Hastes marmorizadas','Assinatura LEBEN gravada'], name:'Ateliê', title:'Leben <em>Ateliê</em>', img:'g19-3', pos:'center 45%',
+   txt:'Uma seleção de armações de grau femininas em acetato e metal, desenhadas como joias: pedras, elos com cristais, hastes marmorizadas e a assinatura LEBEN gravada em cada peça.', tags:['Novidades','Feminino','Acetato & metal']},
+  {id:'sol',  n:'II',  name:'Sol',  title:'Leben <em>Sol</em>',  img:'monaco-1', pos:'center 30%',
    txt:'Solares com proteção UV400 e acabamento premium — do gatinho clássico à máscara de detalhes dourados.', tags:['UV400','Feminino','Masculino']},
-  {id:'grau', n:'II', name:'Grau', title:'Leben <em>Grau</em>', img:'cristal-1', pos:'center 30%',
+  {id:'grau', n:'III', name:'Grau', title:'Leben <em>Grau</em>', img:'cristal-1', pos:'center 30%',
    txt:'Armações para grau que unem clássicos atemporais e tendências — leves, confortáveis e cheias de presença.', tags:['Feminino','Masculino','Acetato & metal']},
-  {id:'clip', n:'III',name:'Clip On', title:'Leben <em>Clip</em>', img:'magnetica-1', pos:'center 35%',
+  {id:'clip', n:'IV',name:'Clip On', title:'Leben <em>Clip</em>', img:'magnetica-1', pos:'center 35%',
    txt:'Grau e solar em um só óculos: a lente solar acopla na armação e transforma o look em segundos.', tags:['2 em 1','Prático','Alto giro']},
-  {id:'kids', n:'IV', name:'Kids', title:'Leben <em>Kids</em>', img:'rose-1', pos:'center 30%',
+  {id:'kids', n:'V', name:'Kids', title:'Leben <em>Kids</em>', img:'rose-1', pos:'center 30%',
    txt:'Infantil resistente, leve e cheio de estilo — feito para acompanhar a rotina das crianças.', tags:['Infantil','Leve','Resistente']},
-  {id:'atelie', n:'V', name:'Ateliê', title:'Leben <em>Ateliê</em>', img:'g19-3', pos:'center 45%',
-   txt:'Armações de grau femininas em acetato e metal — detalhes em joia, hastes marmorizadas e a assinatura LEBEN gravada. Novidades da coleção 2026.', tags:['Novidades','Feminino','Acetato & metal']},
 ];
 const PRODUCTS=[
   /* SOL */
@@ -716,8 +781,17 @@ const total=()=>Object.values(SEL).reduce((a,b)=>a+b,0);
 const ch=$('#chapters');
 LINES.forEach(L=>{
   const items=PRODUCTS.filter(p=>p.line===L.id);
-  const s=document.createElement('section');s.className='chapter';s.dataset.line=L.id;s.id='linha-'+L.id;
-  s.innerHTML=`<div class="wrap">
+  const s=document.createElement('section');s.className='chapter'+(L.featured?' featured':'');s.dataset.line=L.id;s.id='linha-'+L.id;
+  const head=L.featured?`
+    <div class="ft-head">
+      <div class="eyebrow fade">${L.kicker}</div>
+      <div class="ft-num fade">${L.n}</div>
+      <h2 class="fade">${L.title}</h2>
+      <p class="fade">${L.txt}</p>
+      <ul class="ft-hl fade">${L.highlights.map(h=>`<li>${h}</li>`).join('')}<li>${items.length} modelos</li></ul>
+    </div>
+    <div class="ft-tri">${L.triptych.map((k,i)=>`<figure class="fade">${pic(k,'(max-width:860px) 80vw, 33vw','',`Detalhe Leben Ateliê ${i+1}`,true,'center')}</figure>`).join('')}</div>
+    <div class="ft-sub fade"><span>A coleção</span><i></i><span>Toque para ver os detalhes</span></div>`:`
     <div class="ch-open">
       <div class="ch-img fade">${pic(L.img,'(max-width:860px) 88vw, 55vw','',`Linha Leben ${L.name}`,true,L.pos)}</div>
       <div class="ch-txt">
@@ -726,7 +800,9 @@ LINES.forEach(L=>{
         <p class="fade">${L.txt}</p>
         <div class="tags fade">${L.tags.map(t=>`<span>${t}</span>`).join('')}<span>${items.length} destaques</span></div>
       </div>
-    </div>
+    </div>`;
+  s.innerHTML=`<div class="wrap">${head}
+
     <div class="grid">${items.map(p=>`
       <article class="piece fade" data-code="${p.code}">
         <button class="p-media" data-open="${p.code}" aria-label="Ver detalhes de ${p.name}">
@@ -747,7 +823,7 @@ LINES.forEach(L=>{
 /* ══ filtros ══ */
 const F=$('#filters');
 F.innerHTML=`<button class="chip on" data-f="all">Todas<sup>${PRODUCTS.length}</sup></button>`+
-  LINES.map(L=>`<button class="chip" data-f="${L.id}">${L.name}<sup>${PRODUCTS.filter(p=>p.line===L.id).length}</sup></button>`).join('');
+  LINES.map(L=>`<button class="chip${L.featured?' chip-new':''}" data-f="${L.id}">${L.featured?'<b>Novo</b>':''}${L.name}<sup>${PRODUCTS.filter(p=>p.line===L.id).length}</sup></button>`).join('');
 F.addEventListener('click',e=>{
   const b=e.target.closest('.chip');if(!b)return;
   F.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b));
