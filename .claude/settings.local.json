@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(identify /Users/guilherme/Desktop/site-leben/img/Bruna_Cardeal.jpeg)",
+      "Bash(sips -g all /Users/guilherme/Desktop/site-leben/img/Bruna_Cardeal.jpeg)",
+      "Bash(git stash *)",
+      "Bash(python3 *)",
+      "Bash(sips *)",
+      "Bash(git push *)",
+      "Bash(kill %1)",
+      "Bash(ipconfig getifaddr *)",
+      "Bash(git *)"
+    ]
+  }
+}
