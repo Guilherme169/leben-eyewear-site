@@ -170,6 +170,10 @@ em{font-style:italic;color:#A67A3E}
 .piece:hover .p-media .alt{opacity:1}
 .piece:hover .p-media img{transform:scale(1.035)}
 .p-media::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(14,42,37,.35),transparent 32%);pointer-events:none}
+/* linha Ateliê: packshots de estúdio — sem véu escuro, fundo creme */
+.chapter[data-line=atelie] .p-media{background:#F3EEE6}
+.chapter[data-line=atelie] .p-media::after{display:none}
+.chapter[data-line=atelie] .p-count svg{stroke:var(--ink)}.chapter[data-line=atelie] .p-count{color:var(--ink)}
 .p-code{position:absolute;left:14px;top:14px;z-index:2;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:600;
   color:var(--ink);background:rgba(255,253,246,.95);backdrop-filter:blur(6px);padding:6px 11px;border-radius:999px}
 .p-count{position:absolute;right:14px;bottom:14px;z-index:2;font-size:9.5px;letter-spacing:1.5px;color:var(--cream);display:flex;align-items:center;gap:6px}
@@ -387,6 +391,9 @@ body.lock{overflow:hidden}
   .p-info h3{font-size:14pt!important}.p-info p{font-size:7.5pt!important;font-weight:500!important;color:#3A4A44!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
   .p-info>div{min-width:0;width:100%}
   .p-media{aspect-ratio:5/6!important}
+  .chapter[data-line=atelie] .grid{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:3mm 4mm}
+  .chapter[data-line=atelie] .p-info h3{font-size:12pt!important}.chapter[data-line=atelie] .p-info p{font-size:6.5pt!important}
+  .chapter[data-line=atelie] .p-media .main{transform:none}
   .ch-txt p{color:#3A4A44!important}
   .p-code{font-size:6.5pt!important;padding:1mm 2mm!important;left:2mm!important;top:2mm!important}
   .piece{break-inside:avoid}
@@ -433,7 +440,7 @@ body.lock{overflow:hidden}
   <div class="cover-in">
     <div class="eyebrow rise">Coleção 2026 · Para óticas parceiras</div>
     <h1 class="rise">O catálogo<br><em>Leben</em> Eyewear</h1>
-    <p class="rise">Solares, armações de grau, Clip On e Kids — peças desenhadas para despertar desejo no balcão da sua ótica. Garantia certificada de 1 ano e <strong style="color:#E8C886;font-weight:600">mais de 400 modelos à pronta entrega</strong> na mala de visitas.</p>
+    <p class="rise">Solares, armações de grau, Clip On, Kids e a nova linha Ateliê — peças desenhadas para despertar desejo no balcão da sua ótica. Garantia certificada de 1 ano e <strong style="color:#E8C886;font-weight:600">mais de 400 modelos à pronta entrega</strong> na mala de visitas.</p>
     <div class="cover-ctas rise">
       <a class="mbtn" href="#colecao"><span>Explorar a coleção</span></a>
       <a class="gbtn" href="#como-pedir">Como fazer o pedido</a>
@@ -641,6 +648,8 @@ const LINES=[
    txt:'Grau e solar em um só óculos: a lente solar acopla na armação e transforma o look em segundos.', tags:['2 em 1','Prático','Alto giro']},
   {id:'kids', n:'IV', name:'Kids', title:'Leben <em>Kids</em>', img:'rose-1', pos:'center 30%',
    txt:'Infantil resistente, leve e cheio de estilo — feito para acompanhar a rotina das crianças.', tags:['Infantil','Leve','Resistente']},
+  {id:'atelie', n:'V', name:'Ateliê', title:'Leben <em>Ateliê</em>', img:'g19-3', pos:'center 45%',
+   txt:'Armações de grau femininas em acetato e metal — detalhes em joia, hastes marmorizadas e a assinatura LEBEN gravada. Novidades da coleção 2026.', tags:['Novidades','Feminino','Acetato & metal']},
 ];
 const PRODUCTS=[
   /* SOL */
@@ -671,7 +680,22 @@ const PRODUCTS=[
   {code:'LB-C03',name:'Magnética',line:'clip',short:'Metal dourado + clip',desc:'Armação em metal dourado com clip solar de encaixe rápido. Sofisticação prática.',feat:{Formato:'Quadrada',Material:'Metal dourado',Sistema:'Clip solar acoplável'},imgs:['magnetica-1'],pos:'center 30%'},
   /* KIDS */
   {code:'LB-K01',name:'Mini Cristal',line:'kids',short:'Transparente · infantil',desc:'Armação transparente leve e resistente, pensada para o conforto das crianças.',feat:{Formato:'Retangular',Cor:'Cristal',Público:'Infantil'},imgs:['mini-1'],pos:'center 20%'},
-  {code:'LB-K02',name:'Rosé Kids',line:'kids',short:'Rosa · infantil',desc:'Armação rosa translúcido, leve e cheia de estilo — a favorita das meninas.',feat:{Formato:'Quadrada',Cor:'Rosa translúcido',Público:'Infantil'},imgs:['rose-1','rose-2'],pos:'center 20%'},
+  {code:'LB-K02',name:'Rosé Kids',line:'kids',short:'Rosa · infantil',desc:'Armação rosa translúcido, leve e cheia de estilo — a favorita das meninas.',feat:{Formato:'Quadrada',Cor:'Rosa translúcido',Público:'Infantil'},imgs:['rose-1','rose-2'],pos:'center 20%'},  /* ATELIÊ — fotos de estúdio 04.10 (códigos provisórios) */
+  {code:"LB-G11",name:"Aurora",line:'atelie',short:"Gatinho \u00b7 cristal ros\u00e9",desc:"Gatinho em acetato cristal levemente rosado, hastes em lilás com ponteiras turquesa e detalhe metálico dourado. Delicada e luminosa.",feat:{"Formato": "Gatinho", "Cor": "Cristal rosé", "Material": "Acetato"},imgs:["g11-1"],pos:'center'},
+  {code:"LB-G12",name:"Siena",line:'atelie',short:"Gatinho \u00b7 tartaruga + elo dourado",desc:"Gatinho em tartaruga escura com hastes em metal dourado e elo de joia na dobradiça. Clássico que vende sozinho.",feat:{"Formato": "Gatinho", "Cor": "Tartaruga", "Detalhe": "Elo dourado nas hastes"},imgs:["g12-1", "g12-2"],pos:'center'},
+  {code:"LB-G13",name:"Gaia",line:'atelie',short:"Gatinho \u00b7 cinza marmorizado",desc:"Gatinho em acetato cinza translúcido com hastes marmorizadas e ornamento em losango dourado com a gravação LEBEN.",feat:{"Formato": "Gatinho", "Cor": "Cinza translúcido", "Detalhe": "Losango dourado"},imgs:["g13-1", "g13-2"],pos:'center'},
+  {code:"LB-G14",name:"Val\u00eancia",line:'atelie',short:"Gatinho \u00b7 marrom degrad\u00ea",desc:"Gatinho em degradê do marrom ao cristal, com hastes metálicas em losango vazado. Sofisticação no dia a dia.",feat:{"Formato": "Gatinho", "Cor": "Marrom degradê", "Detalhe": "Losango metálico"},imgs:["g14-1", "g14-2"],pos:'center'},
+  {code:"LB-G15",name:"Lisboa",line:'atelie',short:"Redonda \u00b7 cinza degrad\u00ea",desc:"Redonda em acetato degradê cinza, hastes com friso branco e gravação LEBEN entre peças douradas. Leve e moderna.",feat:{"Formato": "Redonda", "Cor": "Cinza degradê", "Material": "Acetato + metal"},imgs:["g15-1", "g15-2"],pos:'center'},
+  {code:"LB-G16",name:"Ambra",line:'atelie',short:"Metal dourado \u00b7 pedra \u00e2mbar",desc:"Metal dourado de linhas geométricas com pedra oval âmbar na lateral e hastes em tartaruga. Peça-joia.",feat:{"Formato": "Geométrica", "Material": "Metal dourado", "Detalhe": "Pedra oval âmbar"},imgs:["g16-1", "g16-2", "g16-3"],pos:'center'},
+  {code:"LB-G17",name:"Ros\u00e9",line:'atelie',short:"Metal ros\u00e9 \u00b7 losango",desc:"Metal rosé com ornamento em losango e hastes em tartaruga clara rosada. Feminina e muito delicada.",feat:{"Formato": "Gatinho geométrico", "Material": "Metal rosé", "Detalhe": "Losango rosé"},imgs:["g17-1", "g17-2", "g17-3"],pos:'center'},
+  {code:"LB-G18",name:"Diamante",line:'atelie',short:"Metal dourado \u00b7 losango LEBEN",desc:"Metal dourado com ponteira em losango espelhado gravado LEBEN e hastes em havana. Assinatura da marca.",feat:{"Formato": "Gatinho geométrico", "Material": "Metal dourado", "Detalhe": "Losango gravado LEBEN"},imgs:["g18-1", "g18-2", "g18-3"],pos:'center'},
+  {code:"LB-G19",name:"P\u00e9rola",line:'atelie',short:"Metal ros\u00e9 \u00b7 hastes madrep\u00e9rola",desc:"Metal rosé com elo esmaltado com cristais e hastes marmorizadas em tons de madrepérola. Uma joia no rosto.",feat:{"Formato": "Gatinho geométrico", "Material": "Metal + acetato", "Detalhe": "Elo com cristais"},imgs:["g19-1", "g19-2", "g19-3"],pos:'center'},
+  {code:"LB-G20",name:"Floren\u00e7a",line:'atelie',short:"Metal \u00b7 hastes facetadas",desc:"Metal em tom bronze com hastes facetadas em acetato marmorizado. Elegância com presença.",feat:{"Formato": "Gatinho geométrico", "Material": "Metal + acetato", "Destaque": "Hastes facetadas"},imgs:["g20-1", "g20-2"],pos:'center'},
+  {code:"LB-G21",name:"Belle",line:'atelie',short:"Gatinho \u00b7 metal marrom e dourado",desc:"Gatinho fino em metal marrom com ponte dourada e hastes em tartaruga. Leve, feminina e atemporal.",feat:{"Formato": "Gatinho", "Material": "Metal", "Cor": "Marrom + dourado"},imgs:["g21-1"],pos:'center'},
+  {code:"LB-G22",name:"Glam",line:'atelie',short:"Metal dourado \u00b7 glitter rosa",desc:"Metal dourado com aplicação em glitter rosé nas laterais. Brilho na medida certa.",feat:{"Formato": "Gatinho", "Material": "Metal dourado", "Detalhe": "Glitter rosé"},imgs:["g22-1", "g22-2"],pos:'center'},
+  {code:"LB-G23",name:"Malva",line:'atelie',short:"Retangular \u00b7 metal malva",desc:"Retangular em metal tom malva com hastes em acetato translúcido. Suave e versátil.",feat:{"Formato": "Retangular", "Cor": "Malva", "Material": "Metal + acetato"},imgs:["g23-1"],pos:'center'},
+  {code:"LB-G24",name:"Petra",line:'atelie',short:"Oval \u00b7 acetato ros\u00e9 transl\u00facido",desc:"Oval em acetato rosé translúcido com textura brilhante e gravação LEBEN na haste.",feat:{"Formato": "Oval", "Cor": "Rosé translúcido", "Material": "Acetato"},imgs:["g24-1", "g24-2"],pos:'center'},
+  {code:"LB-G25",name:"Verona",line:'atelie',short:"Gatinho \u00b7 degrad\u00ea com detalhe ros\u00e9",desc:"Gatinho em degradê marrom-cristal com peça metálica rosé esculpida na dobradiça.",feat:{"Formato": "Gatinho", "Cor": "Marrom degradê", "Detalhe": "Metal rosé esculpido"},imgs:["g25-1", "g25-2"],pos:'center'},
 ];
 
 /* ══ util ══ */
