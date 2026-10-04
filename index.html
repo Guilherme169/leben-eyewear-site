@@ -452,6 +452,7 @@ h2.title{font-family:var(--serif);font-weight:500;font-size:clamp(32px,4.2vw,54p
 .kit-item h4{font-weight:500;font-size:15px;letter-spacing:.5px;margin-bottom:6px;color:var(--ink)}
 .kit-item p{font-size:13.5px;line-height:1.7;color:var(--ink-soft)}
 .kit-photo img{border-radius:6px;aspect-ratio:4/5;object-fit:cover}
+.kit-photo img.kit-img{width:100%;height:auto;object-position:center 30%}
 @media(max-width:900px){.kit-grid{grid-template-columns:1fr;gap:46px}}
 
 /* ══════════ COMO FUNCIONA ══════════ */
@@ -604,6 +605,7 @@ section{scroll-margin-top:76px}
   body::before{animation:none}
   /* fotos de seção: bandas horizontais de editorial (−50% de altura) */
   .brand-photo img,.kit-photo img{aspect-ratio:4/3;height:auto;width:100%}
+  .kit-photo img.kit-img{object-position:center 18%}
   .warranty-photo{margin-bottom:10px}
   .brand-photo::after{display:none} /* sem moldura deslocada */
   .warranty-photo img:not(.seal-img){aspect-ratio:16/10;height:auto;width:100%}
@@ -937,10 +939,11 @@ section{scroll-margin-top:76px}
         <div class="kit-item fade"><div class="kd">IV.</div><div><h4>Agulha nas hastes</h4><p>Armações com sustentação e segurança para ajustes.</p></div></div>
       </div>
     </div>
-    <div class="kit-photo fade"><img src="img/leben-04-720.jpg"
-      srcset="img/leben-04-480.jpg 480w, img/leben-04-720.jpg 720w, img/leben-04.jpg 960w"
-      sizes="(max-width:900px) 88vw, 44vw" width="720" height="928"
-      alt="Solar Leben com detalhes dourados" loading="lazy"></div>
+    <div class="kit-photo fade"><picture><source type="image/webp"
+      srcset="img/leben-kit-480.webp 480w, img/leben-kit-800.webp 800w, img/leben-kit-1200.webp 1200w"
+      sizes="(max-width:900px) 88vw, 44vw">
+      <img class="kit-img" src="img/leben-kit-800.jpg" width="800" height="1067"
+      alt="Mulher com armação de grau Leben segurando óculos de sol redondo" loading="lazy" decoding="async"></picture></div>
   </div>
 </section>
 
