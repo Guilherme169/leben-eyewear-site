@@ -332,6 +332,8 @@ body.menu-lock{overflow:hidden}
 .warranty-point svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.6;flex-shrink:0;margin-top:2px}
 .warranty-point p{font-size:14.5px;line-height:1.75;color:var(--mist)}
 .warranty-point p strong{color:var(--cream);font-weight:500}
+/* foto do estojo: enquadramento que mantém estojo + certificado visíveis */
+.warranty-photo img.estojo-img{width:100%;height:auto;object-position:center 80%}
 @media(max-width:900px){.warranty-grid{grid-template-columns:1fr;gap:46px}
   .warranty-photo .seal-img{width:104px;height:104px;right:8px;bottom:-16px}}
 
@@ -605,6 +607,7 @@ section{scroll-margin-top:76px}
   .warranty-photo{margin-bottom:10px}
   .brand-photo::after{display:none} /* sem moldura deslocada */
   .warranty-photo img:not(.seal-img){aspect-ratio:16/10;height:auto;width:100%}
+  .warranty-photo img.estojo-img{aspect-ratio:1/1;object-position:center 62%}
   .brand-grid,.warranty-grid,.kit-grid{gap:34px}
   /* sombras contidas */
   .pillar,.testi-card,.drop-card{box-shadow:none}
@@ -820,10 +823,11 @@ section{scroll-margin-top:76px}
       </div>
     </div>
     <div class="warranty-photo fade">
-      <img src="img/leben-01-720.jpg"
-        srcset="img/leben-01-480.jpg 480w, img/leben-01-720.jpg 720w, img/leben-01.jpg 960w"
-        sizes="(max-width:900px) 88vw, 44vw" width="720" height="960"
-        alt="Solar Leben gateado tartaruga" loading="lazy">
+      <picture><source type="image/webp"
+        srcset="img/leben-estojo-480.webp 480w, img/leben-estojo-800.webp 800w, img/leben-estojo-1200.webp 1200w"
+        sizes="(max-width:900px) 88vw, 44vw">
+      <img class="estojo-img" src="img/leben-estojo-800.jpg" width="800" height="1067"
+        alt="Estojo Leben Eyewear com Certificado de Garantia" loading="lazy" decoding="async"></picture>
       <img class="seal-img" src="img/selo-garantia-300.png" width="300" height="300" alt="Selo Leben: 1 ano de garantia" loading="lazy">
     </div>
   </div>
