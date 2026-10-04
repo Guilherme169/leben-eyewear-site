@@ -176,7 +176,7 @@ em{font-style:italic;color:#A67A3E}
 .p-dots i.on{background:#fff;transform:scale(1.3)}
 .chapter[data-line=atelie] .p-dots i{background:rgba(14,42,37,.22)}
 .chapter[data-line=atelie] .p-dots i.on{background:var(--gold-2)}
-@media (hover:none){.p-dots{display:flex}.p-count{display:none}}
+@media (hover:none){.p-dots{display:flex}.p-count{display:none!important}}
 .piece:hover .p-media img{transform:scale(1.035)}
 .p-media::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(14,42,37,.35),transparent 32%);pointer-events:none}
 /* linha Ateliê: packshots de estúdio — sem véu escuro, fundo creme */
@@ -765,9 +765,8 @@ const PRODUCTS=[
   {code:"LB-G18",name:"Diamante",line:'atelie',short:"Metal dourado \u00b7 losango LEBEN",desc:"Metal dourado com ponteira em losango espelhado gravado LEBEN e hastes em havana. Assinatura da marca.",feat:{"Formato": "Gatinho geométrico", "Material": "Metal dourado", "Detalhe": "Losango gravado LEBEN"},imgs:["g18-1", "g18-2", "g18-3"],pos:'center'},
   {code:"LB-G19",name:"P\u00e9rola",line:'atelie',short:"Metal ros\u00e9 \u00b7 hastes madrep\u00e9rola",desc:"Metal rosé com elo esmaltado com cristais e hastes marmorizadas em tons de madrepérola. Uma joia no rosto.",feat:{"Formato": "Gatinho geométrico", "Material": "Metal + acetato", "Detalhe": "Elo com cristais"},imgs:["g19-1", "g19-2", "g19-3"],pos:'center'},
   {code:"LB-G20",name:"Floren\u00e7a",line:'atelie',short:"Metal \u00b7 hastes facetadas",desc:"Metal em tom bronze com hastes facetadas em acetato marmorizado. Elegância com presença.",feat:{"Formato": "Gatinho geométrico", "Material": "Metal + acetato", "Destaque": "Hastes facetadas"},imgs:["g20-1", "g20-2"],pos:'center'},
-  {code:"LB-G21",name:"Belle",line:'atelie',short:"Gatinho \u00b7 metal marrom e dourado",desc:"Gatinho fino em metal marrom com ponte dourada e hastes em tartaruga. Leve, feminina e atemporal.",feat:{"Formato": "Gatinho", "Material": "Metal", "Cor": "Marrom + dourado"},imgs:["g21-1"],pos:'center'},
-  {code:"LB-G22",name:"Glam",line:'atelie',short:"Metal dourado \u00b7 glitter rosa",desc:"Metal dourado com aplicação em glitter rosé nas laterais. Brilho na medida certa.",feat:{"Formato": "Gatinho", "Material": "Metal dourado", "Detalhe": "Glitter rosé"},imgs:["g22-1", "g22-2"],pos:'center'},
-  {code:"LB-G23",name:"Malva",line:'atelie',short:"Retangular \u00b7 metal malva",desc:"Retangular em metal tom malva com hastes em acetato translúcido. Suave e versátil.",feat:{"Formato": "Retangular", "Cor": "Malva", "Material": "Metal + acetato"},imgs:["g23-1"],pos:'center'},
+  {code:"LB-G21",name:"Belle",line:'atelie',short:"Gatinho · metal com glitter rosé",desc:"Gatinho fino em metal marrom e dourado, com hastes em tartaruga e aplicação em glitter rosé nas laterais. Leve, feminina e com brilho na medida certa.",feat:{"Formato": "Gatinho", "Material": "Metal", "Detalhe": "Glitter rosé nas laterais"},imgs:["g21-1", "g22-1"],pos:'center'},
+  {code:"LB-G23",name:"Malva",line:'atelie',short:"Retangular \u00b7 metal malva",desc:"Retangular em metal tom malva com hastes em acetato translúcido. Suave e versátil.",feat:{"Formato": "Retangular", "Cor": "Malva", "Material": "Metal + acetato"},imgs:["g23-1", "g22-2"],pos:'center'},
   {code:"LB-G24",name:"Petra",line:'atelie',short:"Oval \u00b7 acetato ros\u00e9 transl\u00facido",desc:"Oval em acetato rosé translúcido com textura brilhante e gravação LEBEN na haste.",feat:{"Formato": "Oval", "Cor": "Rosé translúcido", "Material": "Acetato"},imgs:["g24-1", "g24-2"],pos:'center'},
   {code:"LB-G25",name:"Verona",line:'atelie',short:"Gatinho \u00b7 degrad\u00ea com detalhe ros\u00e9",desc:"Gatinho em degradê marrom-cristal com peça metálica rosé esculpida na dobradiça.",feat:{"Formato": "Gatinho", "Cor": "Marrom degradê", "Detalhe": "Metal rosé esculpido"},imgs:["g25-1", "g25-2"],pos:'center'},
 ];
