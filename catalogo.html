@@ -167,7 +167,16 @@ em{font-style:italic;color:#A67A3E}
 .p-media{position:relative;display:block;width:100%;aspect-ratio:4/5;border-radius:4px;overflow:hidden;background:#E9E1CF;cursor:zoom-in}
 .p-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .8s ease,transform 1.4s var(--ease)}
 .p-media .alt{opacity:0}
-.piece:hover .p-media .alt{opacity:1}
+.p-media .alt{transition:opacity .9s ease,transform 1.4s var(--ease)}
+@media (hover:hover){.piece:hover .p-media .alt.a1{opacity:1}}
+/* celular: as fotos trocam sozinhas conforme a rolagem (frente → detalhes) */
+.p-media[data-s="1"] .alt.a1,.p-media[data-s="2"] .alt.a2,.p-media[data-s="3"] .alt.a3{opacity:1}
+.p-dots{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:3;display:none;gap:5px}
+.p-dots i{width:5px;height:5px;border-radius:50%;background:rgba(255,253,246,.55);box-shadow:0 0 0 1px rgba(14,42,37,.12);transition:background .4s,transform .4s}
+.p-dots i.on{background:#fff;transform:scale(1.3)}
+.chapter[data-line=atelie] .p-dots i{background:rgba(14,42,37,.22)}
+.chapter[data-line=atelie] .p-dots i.on{background:var(--gold-2)}
+@media (hover:none){.p-dots{display:flex}.p-count{display:none}}
 .piece:hover .p-media img{transform:scale(1.035)}
 .p-media::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(14,42,37,.35),transparent 32%);pointer-events:none}
 /* linha Ateliê: packshots de estúdio — sem véu escuro, fundo creme */
@@ -808,7 +817,8 @@ LINES.forEach(L=>{
         <button class="p-media" data-open="${p.code}" aria-label="Ver detalhes de ${p.name}">
           <span class="p-code">Nº ${p.code.replace('LB-','')}</span>
           ${pic(p.imgs[0],'(max-width:980px) 46vw, 30vw','main',`${p.name} — Leben ${lineName(p.line)}`,true,p.pos||'')}
-          ${p.imgs[1]?pic(p.imgs[1],'(max-width:980px) 46vw, 30vw','alt','',true,''):''}
+          ${p.imgs.slice(1,4).map((k,j)=>pic(k,'(max-width:980px) 46vw, 30vw','alt a'+(j+1),'',true,'')).join('')}
+          ${p.imgs.length>1?`<span class="p-dots" aria-hidden="true">${p.imgs.slice(0,4).map((_,j)=>`<i class="${j?'':'on'}"></i>`).join('')}</span>`:''}
           ${p.imgs.length>1?`<span class="p-count"><svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1.5"/><circle cx="6" cy="7" r="1.3"/><path d="M14 11l-4-4-6 6"/></svg>${p.imgs.length}</span>`:''}
         </button>
         <div class="p-info">
@@ -952,6 +962,22 @@ const topEl=$('#top');addEventListener('scroll',()=>topEl.classList.toggle('soli
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});
 document.querySelectorAll('.fade').forEach(el=>io.observe(el));
 /* link direto para uma linha: catalogo.html#linha-sol */
+
+/* ══ celular: troca automática de fotos na rolagem ══ */
+if(matchMedia('(hover:none)').matches){
+  const medias=[...document.querySelectorAll('.p-media')].filter(m=>m.querySelector('.alt'));
+  let tick=false;
+  const upd=()=>{tick=false;const vh=innerHeight;
+    medias.forEach(m=>{const r=m.getBoundingClientRect();if(r.bottom<0||r.top>vh||!m.offsetParent)return;
+      const n=m.querySelectorAll('.alt').length+1;
+      /* posição do centro do card na tela: 0 = entrando por baixo, 1 = saindo por cima */
+      const t=Math.min(1,Math.max(0,(vh*.92-(r.top+r.height/2))/(vh*.72)));
+      const i=Math.min(n-1,Math.floor(t*n));
+      if(m.dataset.s!=String(i)){m.dataset.s=i;m.querySelectorAll('.p-dots i').forEach((d,j)=>d.classList.toggle('on',j===i))}
+    });};
+  addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});
+  upd();
+}
 refresh();
 </script>
 </body>
