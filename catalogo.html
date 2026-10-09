@@ -455,6 +455,24 @@ body.ordering::after{display:none}
 .ov-foot b{color:var(--ink)}
 @media(max-width:760px){.ov-item{grid-template-columns:1fr;gap:14px}.ov-gal figure{flex-basis:72%}.ov-stats div{padding:12px 16px}.ov-stats b{font-size:26px}
   .ov-top{padding:12px 4vw}.ov-acts .gbtn:first-child{display:none}.ov-top .logo small{display:none}}
+
+/* ══ curadoria / modo equipe ══ */
+.cur-sign{display:block;margin-top:10px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#E8C886;font-style:normal}
+.cur-band{text-align:center;padding-top:clamp(50px,7vw,80px)!important;padding-bottom:0!important}
+.cur-band p{font-size:15px;color:var(--ink-soft);margin-bottom:18px}
+html.curated .cover-meta b{font-size:64px}
+.team-badge{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;font-weight:600;background:#E8C886;color:var(--green-2);padding:6px 10px;border-radius:999px}
+.cur-panel{margin-top:18px;padding:18px;border-radius:12px;background:var(--green-2);color:var(--cream);display:grid;gap:10px}
+.cur-panel[hidden]{display:none}
+.cp-head span{display:block;font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:#E8C886;font-weight:600}
+.cp-head b{display:block;font-family:var(--serif);font-size:24px;font-weight:500;margin-top:4px}
+.cur-panel p{font-size:12.5px;line-height:1.6;color:var(--mist)}
+.cur-panel input,.cur-panel textarea{width:100%;padding:13px 14px;border-radius:10px;border:1px solid rgba(232,200,134,.35);background:rgba(255,253,246,.06);color:var(--cream);font-family:var(--sans);font-size:16px}
+.cur-panel textarea{min-height:70px;resize:vertical}
+.cur-panel input::placeholder,.cur-panel textarea::placeholder{color:rgba(180,195,188,.8)}
+.cur-panel .mbtn{display:block;width:100%}.cur-panel .mbtn>span{width:100%;min-height:52px}
+.cur-panel .mini{display:flex;justify-content:space-between;margin-top:10px}
+.cur-panel .mini button{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:#E8C886;text-decoration:underline;text-underline-offset:3px}
 /* ══ IMPRESSÃO / PDF ══ */
 @media print{
   @page{size:A4;margin:0}
@@ -704,6 +722,17 @@ body.ordering::after{display:none}
   </div>
   <div class="dr-body">
     <div id="drList"></div>
+    <div class="cur-panel" id="curPanel" hidden>
+      <div class="cp-head"><span>Modo equipe</span><b>Criar seleção exclusiva</b></div>
+      <p>As peças marcadas acima viram um catálogo personalizado com o nome da ótica. Envie o link ao cliente.</p>
+      <input type="text" id="cpOtica" placeholder="Nome da ótica (aparece na capa)" autocapitalize="words">
+      <input type="text" id="cpContato" placeholder="Nome do contato (opcional)" autocapitalize="words">
+      <textarea id="cpMsg" placeholder="Mensagem pessoal na capa (opcional) — ex.: Separei as peças que mais combinam com a sua vitrine."></textarea>
+      <div class="cp-acts">
+        <button class="mbtn" id="cpWA" type="button"><span>Enviar link ao cliente</span></button>
+        <div class="mini"><button id="cpCopy" type="button">Copiar link</button><button id="cpOpen" type="button">Pré-visualizar</button></div>
+      </div>
+    </div>
     <form class="dr-form" id="drForm" autocomplete="on">
       <label class="chk"><input type="checkbox" id="fSimilar" checked><span><strong style="font-weight:500">Aceito sugestões de modelos semelhantes</strong> caso alguma peça esteja sem estoque.</span></label>
       <input type="text" id="fNome" placeholder="Seu nome" autocomplete="name" autocapitalize="words">
@@ -823,6 +852,25 @@ const PRODUCTS=[
   {code:"LB-G32",name:"Aurélia",line:'atelie',short:"Gatinho · metal dourado + tartaruga",desc:"Gatinho afinado em metal dourado de fio fino, com a assinatura LEBEN gravada na haste e ponteiras em tartaruga. Leve, minimalista e muito elegante.",feat:{"Formato": "Gatinho", "Material": "Metal dourado", "Detalhe": "Gravação LEBEN + ponteiras tartaruga"},imgs:["g32-1", "g32-2", "g32-3"],pos:'center'},
 ];
 
+/* ══ CURADORIA PERSONALIZADA (link enviado pela equipe Leben) ══
+   ?sel=G16,G31,S04&otica=Ótica Visão&contato=Ana&msg=Texto  → catálogo exclusivo só com essas peças
+   ?equipe=1 → ativa o modo equipe neste aparelho (painel para montar o link); ?equipe=0 desativa */
+const QS=new URLSearchParams(location.search);
+const CUR=(()=>{const sel=(QS.get('sel')||'').split(',').map(x=>x.trim()).filter(Boolean).map(x=>'LB-'+x.replace(/^LB-/,''));
+  if(!sel.length)return null;
+  return{codes:sel.filter(c=>PRODUCTS.some(p=>p.code===c)),otica:QS.get('otica')||'',contato:QS.get('contato')||'',msg:QS.get('msg')||''};})();
+if(CUR&&CUR.codes.length){
+  const keep=new Set(CUR.codes);
+  for(let i=PRODUCTS.length-1;i>=0;i--)if(!keep.has(PRODUCTS[i].code))PRODUCTS.splice(i,1);
+  for(let i=LINES.length-1;i>=0;i--)if(!PRODUCTS.some(p=>p.line===LINES[i].id))LINES.splice(i,1);
+  /* ordem escolhida pela equipe */
+  PRODUCTS.sort((a,b)=>CUR.codes.indexOf(a.code)-CUR.codes.indexOf(b.code));
+  document.documentElement.classList.add('curated');
+}
+let TEAM=false;
+try{if(QS.get('equipe')==='1')localStorage.setItem('leben_equipe','1');if(QS.get('equipe')==='0')localStorage.removeItem('leben_equipe');TEAM=localStorage.getItem('leben_equipe')==='1'}catch(e){TEAM=QS.get('equipe')==='1'}
+if(CUR&&CUR.codes.length)TEAM=false; /* na visão do cliente nunca mostra o modo equipe */
+
 /* ══ util ══ */
 const $=s=>document.querySelector(s);
 const pic=(k,sizes,cls='',alt='',lazy=true,pos='')=>`<picture><source type="image/webp" srcset="img/catalogo/${k}-600.webp 600w, img/catalogo/${k}-1100.webp 1100w" sizes="${sizes}"><img ${cls?`class="${cls}"`:''} src="img/catalogo/${k}-1100.jpg" alt="${alt}" ${lazy?'loading="lazy"':''} decoding="async" ${pos?`style="object-position:${pos}"`:''}></picture>`;
@@ -831,10 +879,11 @@ const lineName=id=>LINES.find(l=>l.id===id).name;
 $('#destCount').textContent=PRODUCTS.length;
 
 /* ══ seleção (persistida no aparelho) ══ */
+const SELKEY=(CUR&&CUR.codes.length)?'lebenSel:'+CUR.codes.join(','):'lebenSel';
 let SEL={};
-try{SEL=JSON.parse(localStorage.getItem('lebenSel')||'{}')||{}}catch(e){SEL={}}
+try{SEL=JSON.parse(localStorage.getItem(SELKEY)||'{}')||{}}catch(e){SEL={}}
 Object.keys(SEL).forEach(c=>{if(!byCode(c))delete SEL[c]});
-const save=()=>{try{localStorage.setItem('lebenSel',JSON.stringify(SEL))}catch(e){}};
+const save=()=>{try{localStorage.setItem(SELKEY,JSON.stringify(SEL))}catch(e){}};
 const total=()=>Object.values(SEL).reduce((a,b)=>a+b,0);
 
 /* ══ render dos capítulos ══ */
@@ -957,7 +1006,7 @@ $('#clearAll').addEventListener('click',()=>{if(!total())return;SEL={};save();re
 function buildMsg(){
   const codes=Object.keys(SEL);
   const nome=$('#fNome').value.trim(),otica=$('#fOtica').value.trim(),cidade=$('#fCidade').value.trim(),obs=$('#fObs').value.trim();
-  let m=`Olá, Leben! ${nome?`Sou ${nome}`:'Tudo bem?'}${otica?`, da ${otica}`:''}${cidade?` (${cidade})`:''}.\nMontei minha seleção pelo catálogo 2026:\n\n`;
+  let m=`Olá, Leben! ${nome?`Sou ${nome}`:'Tudo bem?'}${otica?`, da ${otica}`:''}${cidade?` (${cidade})`:''}.\n${(CUR&&CUR.codes.length)?`Recebi a seleção exclusiva Leben${CUR.otica?' para a '+CUR.otica:''} e escolhi:`:'Montei minha seleção pelo catálogo 2026:'}\n\n`;
   LINES.forEach(L=>{const its=codes.filter(c=>byCode(c).line===L.id);if(!its.length)return;
     m+=`*${L.name.toUpperCase()}*\n`+its.map(c=>{const p=byCode(c);return`• ${p.code} ${p.name} — ${SEL[c]} un.`}).join('\n')+'\n\n'});
   m+=`Total: ${total()} ${total()===1?'peça':'peças'}\n`;
@@ -1083,6 +1132,43 @@ function orderLink(){
   const txt=`Seleção ${nome?'de '+nome:''}${otica?' — '+otica:''}${cidade?' ('+cidade+')':''}\n`+items.map(({p,n})=>`• ${p.code} ${p.name} — ${n} un.`).join('\n')+`\nTotal: ${tot} peças`;
   $('#ovCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(txt);toast('Lista copiada')}catch(e){toast('Não foi possível copiar')}});
 })();
+
+/* ══ CURADORIA: personalização da capa e da página ══ */
+const escH=t=>String(t).replace(/[&<>"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+if(CUR&&CUR.codes.length){
+  const n=PRODUCTS.length,ot=CUR.otica,ct=CUR.contato;
+  document.title=`Seleção exclusiva${ot?' para '+ot:''} — Leben Eyewear`;
+  $('.logo small').textContent=ot?`Exclusivo · ${ot}`:'Seleção exclusiva';
+  $('.cover .eyebrow').textContent='Seleção exclusiva · Leben Eyewear';
+  $('.cover h1').innerHTML=ot?`Para <em>${escH(ot)}</em>`:'Uma seleção<br><em>para você</em>';
+  $('.cover p').innerHTML=CUR.msg?`“${escH(CUR.msg)}”${ct?`<br><span class="cur-sign">— Equipe Leben, para ${escH(ct)}</span>`:''}`:
+    `${ct?escH(ct)+', s':'S'}eparamos <strong style="color:#E8C886;font-weight:600">${n} ${n===1?'modelo':'modelos'}</strong> pensando no perfil${ot?' da '+escH(ot):' da sua ótica'} — com garantia certificada de 1 ano e pronta entrega.`;
+  const ctas=$('.cover-ctas');ctas.innerHTML=`<a class="mbtn" href="#colecao"><span>Ver minha seleção</span></a><a class="gbtn" href="${location.pathname}">Catálogo completo</a>`;
+  $('.cover-meta').innerHTML=`<b>${n}</b>${n===1?'peça selecionada':'peças selecionadas'}<br>${ot?'para '+escH(ot):'para você'}`;
+  const intro=$('.intro400');if(intro)intro.innerHTML=`Esta é uma <strong>curadoria exclusiva</strong>${ot?' para a <strong>'+escH(ot)+'</strong>':''}: ${n} ${n===1?'modelo escolhido':'modelos escolhidos'} pela equipe Leben. Marque os que quer na vitrine — e lembre que a mala de visitas tem <strong>mais de 400 peças</strong> à pronta entrega.`;
+  if(ot&&!$('#fOtica').value)$('#fOtica').value=ot;
+  if(ct&&!$('#fNome').value)$('#fNome').value=ct;
+  /* faixa no fim da coleção */
+  const band=document.createElement('div');band.className='cur-band wrap';
+  band.innerHTML=`<p>Quer ver outras opções? A coleção completa tem dezenas de modelos — e a mala, mais de 400.</p><a class="gbtn dark" href="${location.pathname}">Abrir catálogo completo</a>`;
+  $('#chapters').after(band);
+}
+/* ══ MODO EQUIPE: gerar link exclusivo ══ */
+if(TEAM){
+  $('#curPanel').hidden=false;document.documentElement.classList.add('team');
+  const badge=document.createElement('span');badge.className='team-badge';badge.textContent='Modo equipe';$('.top-r').prepend(badge);
+  ['cpOtica','cpContato','cpMsg'].forEach(id=>{const el=document.getElementById(id);try{el.value=localStorage.getItem('leben_'+id)||''}catch(e){}
+    el.addEventListener('input',()=>{try{localStorage.setItem('leben_'+id,el.value)}catch(e){}})});
+  const curLink=()=>{const q=new URLSearchParams();q.set('sel',Object.keys(SEL).map(c=>c.replace('LB-','')).join(','));
+    const v=id=>$(id).value.trim();if(v('#cpOtica'))q.set('otica',v('#cpOtica'));if(v('#cpContato'))q.set('contato',v('#cpContato'));if(v('#cpMsg'))q.set('msg',v('#cpMsg'));
+    return SITE+'?'+q.toString();};
+  const need=()=>{if(!Object.keys(SEL).length){toast('Marque ao menos uma peça');return false}return true};
+  $('#cpCopy').addEventListener('click',async()=>{if(!need())return;try{await navigator.clipboard.writeText(curLink());toast('Link exclusivo copiado')}catch(e){prompt('Copie o link:',curLink())}});
+  $('#cpOpen').addEventListener('click',()=>{if(need())window.open(curLink().replace(SITE,location.origin+location.pathname),'_blank')});
+  $('#cpWA').addEventListener('click',()=>{if(!need())return;const ot=$('#cpOtica').value.trim(),ct=$('#cpContato').value.trim();
+    const t=`Olá${ct?', '+ct:''}! Aqui é da Leben Eyewear. ✨\nSeparamos uma seleção exclusiva de armações${ot?' para a '+ot:''}, com ${Object.keys(SEL).length} modelos escolhidos para o perfil da sua vitrine.\n\nVeja aqui:\n${curLink()}\n\nÉ só marcar as peças que quiser e enviar pelo próprio catálogo. Todas com garantia certificada de 1 ano e pronta entrega.`;
+    window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank')});
+}
 
 refresh();
 </script>
