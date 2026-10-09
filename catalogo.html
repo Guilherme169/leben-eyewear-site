@@ -856,7 +856,7 @@ const PRODUCTS=[
 
 /* ══ CURADORIA PERSONALIZADA (link enviado pela equipe Leben) ══
    ?sel=G16,G31,S04&otica=Ótica Visão&contato=Ana&msg=Texto  → catálogo exclusivo só com essas peças
-   ?equipe=1 → ativa o modo equipe neste aparelho (painel para montar o link); ?equipe=0 desativa */
+   ?equipe=1 → ativa o modo equipe só nesta aba (painel para montar o link); ?equipe=0 desativa */
 const QS=new URLSearchParams(location.search);
 const CUR=(()=>{const sel=(QS.get('sel')||'').split(',').map(x=>x.trim()).filter(Boolean).map(x=>'LB-'+x.replace(/^LB-/,''));
   if(!sel.length)return null;
@@ -870,7 +870,12 @@ if(CUR&&CUR.codes.length){
   document.documentElement.classList.add('curated');
 }
 let TEAM=false;
-try{if(QS.get('equipe')==='1')localStorage.setItem('leben_equipe','1');if(QS.get('equipe')==='0')localStorage.removeItem('leben_equipe');TEAM=localStorage.getItem('leben_equipe')==='1'}catch(e){TEAM=QS.get('equipe')==='1'}
+/* modo equipe só com ?equipe=1 no endereço; vale apenas nesta aba (some ao fechar ou ao abrir o link normal) */
+try{localStorage.removeItem('leben_equipe');
+  if(QS.get('equipe')==='1')sessionStorage.setItem('leben_equipe','1');
+  if(QS.get('equipe')==='0')sessionStorage.removeItem('leben_equipe');
+  TEAM=QS.get('equipe')==='1'||(sessionStorage.getItem('leben_equipe')==='1'&&!QS.has('equipe'));
+}catch(e){TEAM=QS.get('equipe')==='1'}
 if(CUR&&CUR.codes.length)TEAM=false; /* na visão do cliente nunca mostra o modo equipe */
 
 /* ══ util ══ */
@@ -1158,7 +1163,7 @@ if(CUR&&CUR.codes.length){
 /* ══ MODO EQUIPE: gerar link exclusivo ══ */
 if(TEAM){
   $('#curPanel').hidden=false;document.documentElement.classList.add('team');
-  const badge=document.createElement('span');badge.className='team-badge';badge.textContent='Modo equipe';$('.top-r').prepend(badge);
+  const badge=document.createElement('span');badge.className='team-badge';badge.textContent='Modo equipe ✕';badge.title='Sair do modo equipe';badge.style.cursor='pointer';badge.addEventListener('click',()=>{try{sessionStorage.removeItem('leben_equipe')}catch(e){}location.href=location.pathname});$('.top-r').prepend(badge);
   ['cpOtica','cpContato','cpMsg'].forEach(id=>{const el=document.getElementById(id);try{el.value=localStorage.getItem('leben_'+id)||''}catch(e){}
     el.addEventListener('input',()=>{try{localStorage.setItem('leben_'+id,el.value)}catch(e){}})});
   const curLink=()=>{const q=new URLSearchParams();q.set('sel',Object.keys(SEL).map(c=>c.replace('LB-','')).join(','));
