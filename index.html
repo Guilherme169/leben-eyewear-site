@@ -769,38 +769,15 @@ section{scroll-margin-top:76px}
   .mf-legal{justify-content:center;text-align:center}
 }
 
-/* ══════════ LEBEN ATELIÊ — campanha na home ══════════ */
-.atelie-camp{overflow:hidden}
-.atelie-camp::before{content:'';position:absolute;right:-10%;top:-20%;width:70vmin;height:70vmin;border-radius:50%;
-  background:radial-gradient(circle,rgba(210,168,92,.14),transparent 65%);pointer-events:none}
-.ac-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center;position:relative}
-.atelie-camp h2.title{font-size:clamp(48px,6.6vw,92px);line-height:.98;letter-spacing:-.5px}
-.atelie-camp h2.title em{font-style:italic;color:var(--gold);font-weight:inherit}
-.ac-hl{list-style:none;display:flex;flex-wrap:wrap;gap:10px 0;margin-top:26px}
-.ac-hl li{font-size:10.5px;letter-spacing:2.6px;text-transform:uppercase;color:var(--cream);font-weight:500;padding:0 16px}
-.ac-hl li:first-child{padding-left:0}
-.ac-hl li+li{border-left:1px solid rgba(210,168,92,.45)}
-.ac-ctas{margin-top:34px}
-.ac-tri{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:1fr 1fr;gap:16px;height:min(560px,62vw)}
-.ac-tri figure{border-radius:6px;overflow:hidden;background:#E9E3D8;box-shadow:0 26px 60px rgba(0,0,0,.35)}
-.ac-tri .ac-a{grid-row:1/3}
-.ac-tri picture,.ac-tri img{display:block;width:100%;height:100%}
-.ac-tri img{object-fit:cover;transition:transform 1.6s cubic-bezier(.22,1,.36,1)}
-.ac-tri figure:hover img{transform:scale(1.05)}
 .drop-tag.drop-new{background:var(--green-2);color:var(--gold);border-color:var(--green-2)}
 .como-ctas{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:44px}
 .mm-cta .mm-wa{display:block;text-align:center;margin-top:16px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold)}
 @media(max-width:860px){
-  .ac-grid{grid-template-columns:1fr;gap:40px}
-  .ac-tri{height:auto;grid-template-columns:1fr 1fr;grid-template-rows:auto}
-  .ac-tri .ac-a{grid-row:auto;grid-column:1/-1;aspect-ratio:16/11}
-  .ac-tri .ac-b,.ac-tri .ac-c{aspect-ratio:3/4}
-  .ac-ctas .mbtn,.como-ctas .mbtn{display:block;width:100%}
-  .ac-ctas .mbtn-face,.como-ctas .mbtn-face{display:flex;width:100%;justify-content:center;min-height:56px}
+  .como-ctas .mbtn{display:block;width:100%}
+  .como-ctas .mbtn-face{display:flex;width:100%;justify-content:center;min-height:56px}
   .como-ctas{flex-direction:column;align-items:stretch}
   .como-ctas .lbtn{justify-content:center;min-height:56px}
 }
-@media(max-width:600px){.ac-hl li,.ac-hl li:first-child{padding:0 12px 0 0}.ac-hl li+li{border-left:0}.ac-hl li:not(:last-child)::after{content:'·';margin-left:12px;color:var(--gold)}}
 /* barra fixa no celular */
 .mbar{display:none}
 @media(max-width:700px){
@@ -833,7 +810,7 @@ section{scroll-margin-top:76px}
 <nav id="nav">
   <a class="nav-logo" href="#top">LEBEN<span>.</span></a>
   <div class="nav-links">
-    <a href="#atelie">Ateliê</a>
+    <a href="catalogo.html#linha-atelie">Ateliê</a>
     <a href="#colecao">Linhas</a>
     <a href="#marca">A marca</a>
     <a href="#garantia">Garantia</a>
@@ -854,7 +831,7 @@ section{scroll-margin-top:76px}
     </button>
   </div>
   <div class="mm-eyebrow">Leben Eyewear</div>
-  <a class="mm-link" href="#atelie">Ateliê<em>Novo</em></a>
+  <a class="mm-link" href="catalogo.html#linha-atelie">Ateliê<em>Novo</em></a>
   <a class="mm-link" href="#colecao">Linhas<em>01</em></a>
   <a class="mm-link" href="#marca">A marca<em>02</em></a>
   <a class="mm-link" href="#garantia">Garantia<em>03</em></a>
@@ -919,23 +896,70 @@ section{scroll-margin-top:76px}
   </div>
 </div>
 
-<!-- LEBEN ATELIÊ — campanha -->
-<section class="atelie-camp dark-band" id="atelie">
-  <div class="wrap ac-grid">
-    <div class="ac-copy">
-      <div class="eyebrow fade">Novidade · Coleção 2026</div>
-      <h2 class="title fade">Leben <em>Ateliê</em></h2>
-      <p class="lead fade">Armações receituário femininas desenhadas como joias: pedras, elos com cristais, hastes marmorizadas e a assinatura LEBEN gravada em cada peça.</p>
-      <ul class="ac-hl fade"><li>Detalhes em joia</li><li>Acetato e metal</li><li>Assinatura LEBEN</li></ul>
-      <div class="ac-ctas fade">
-        <a class="mbtn" href="catalogo.html#linha-atelie" data-track="atelie_open"><span class="mbtn-face">Conhecer o Ateliê</span></a>
-      </div>
+<!-- LINHAS -->
+<section id="colecao">
+  <div class="wrap coll-head" style="padding-bottom:56px">
+    <div>
+      <div class="eyebrow fade">As linhas</div>
+      <h2 class="title fade">Um portfólio completo para a sua vitrine.</h2>
     </div>
-    <div class="ac-tri">
-      <figure class="ac-a fade"><picture><source type="image/webp" srcset="img/catalogo/g16-2-600.webp 600w, img/catalogo/g16-2-1100.webp 1100w" sizes="(max-width:860px) 88vw, 30vw"><img src="img/catalogo/g16-2-1100.jpg" alt="Detalhe de haste marmorizada — Leben Ateliê" loading="lazy" decoding="async" style="object-position:center"></picture></figure>
-      <figure class="ac-b fade"><picture><source type="image/webp" srcset="img/catalogo/g19-3-600.webp 600w, img/catalogo/g19-3-1100.webp 1100w" sizes="(max-width:860px) 44vw, 18vw"><img src="img/catalogo/g19-3-1100.jpg" alt="Detalhe com pérola — Leben Ateliê" loading="lazy" decoding="async" style="object-position:center"></picture></figure>
-      <figure class="ac-c fade"><picture><source type="image/webp" srcset="img/catalogo/g18-2-600.webp 600w, img/catalogo/g18-2-1100.webp 1100w" sizes="(max-width:860px) 44vw, 18vw"><img src="img/catalogo/g18-2-1100.jpg" alt="Detalhe com losango dourado — Leben Ateliê" loading="lazy" decoding="async" style="object-position:center"></picture></figure>
-    </div>
+    <p class="lead fade">A nova linha Ateliê, armações receituário, óculos de sol e Clip On, em modelos <strong>femininos, masculinos e infantis</strong> — qualidade, design e excelente custo-benefício para todas as idades e estilos.</p>
+  </div>
+  <div class="colls fade">
+    <a class="coll" href="catalogo.html#linha-atelie" data-track="collection_open" aria-label="Ver linha Leben Ateliê">
+      <picture><source type="image/webp" srcset="img/catalogo/g19-3-600.webp 600w, img/catalogo/g19-3-1100.webp 1100w" sizes="(max-width:999px) 76vw, 20vw"><img src="img/catalogo/g19-3-1100.jpg" alt="Linha Leben Ateliê" loading="lazy" decoding="async" style="object-position:38% 50%"></picture>
+      <span class="coll-cap">
+        <span class="coll-n">I</span>
+        <span class="coll-t"><em>Leben</em>Ateliê</span>
+        <span class="coll-new">Novo</span>
+        <span class="coll-v">Receituário · Joia</span>
+        <span class="coll-go"><svg viewBox="0 0 26 26"><path d="M5 13h16M15 7l6 6-6 6"/></svg><b>Ver linha</b></span>
+      </span>
+    </a>
+    <a class="coll" href="catalogo.html#linha-sol" data-track="collection_open" aria-label="Ver linha Leben Sol">
+      <picture><source type="image/webp" srcset="img/catalogo/p06-600.webp 600w, img/catalogo/p06-1100.webp 1100w" sizes="(max-width:999px) 76vw, 20vw"><img src="img/catalogo/p06-1100.jpg" alt="Linha Leben Sol" loading="lazy" decoding="async" style="object-position:center 22%"></picture>
+      <span class="coll-cap">
+        <span class="coll-n">II</span>
+        <span class="coll-t"><em>Leben</em>Sol</span>
+        
+        <span class="coll-v">Solar · UV400</span>
+        <span class="coll-go"><svg viewBox="0 0 26 26"><path d="M5 13h16M15 7l6 6-6 6"/></svg><b>Ver linha</b></span>
+      </span>
+    </a>
+    <a class="coll" href="catalogo.html#linha-grau" data-track="collection_open" aria-label="Ver linha Leben Grau">
+      <picture><source type="image/webp" srcset="img/catalogo/cristal-1-600.webp 600w, img/catalogo/cristal-1-1100.webp 1100w" sizes="(max-width:999px) 76vw, 20vw"><img src="img/catalogo/cristal-1-1100.jpg" alt="Linha Leben Grau" loading="lazy" decoding="async" style="object-position:center 30%"></picture>
+      <span class="coll-cap">
+        <span class="coll-n">III</span>
+        <span class="coll-t"><em>Leben</em>Grau</span>
+        
+        <span class="coll-v">Feminino · Masculino</span>
+        <span class="coll-go"><svg viewBox="0 0 26 26"><path d="M5 13h16M15 7l6 6-6 6"/></svg><b>Ver linha</b></span>
+      </span>
+    </a>
+    <a class="coll" href="catalogo.html#linha-clip" data-track="collection_open" aria-label="Ver linha Leben Clip">
+      <picture><source type="image/webp" srcset="img/catalogo/magnetica-1-600.webp 600w, img/catalogo/magnetica-1-1100.webp 1100w" sizes="(max-width:999px) 76vw, 20vw"><img src="img/catalogo/magnetica-1-1100.jpg" alt="Linha Leben Clip" loading="lazy" decoding="async" style="object-position:center 35%"></picture>
+      <span class="coll-cap">
+        <span class="coll-n">IV</span>
+        <span class="coll-t"><em>Leben</em>Clip</span>
+        
+        <span class="coll-v">Grau · Solar · 2 em 1</span>
+        <span class="coll-go"><svg viewBox="0 0 26 26"><path d="M5 13h16M15 7l6 6-6 6"/></svg><b>Ver linha</b></span>
+      </span>
+    </a>
+    <a class="coll" href="catalogo.html#linha-kids" data-track="collection_open" aria-label="Ver linha Leben Kids">
+      <picture><source type="image/webp" srcset="img/catalogo/rose-1-600.webp 600w, img/catalogo/rose-1-1100.webp 1100w" sizes="(max-width:999px) 76vw, 20vw"><img src="img/catalogo/rose-1-1100.jpg" alt="Linha Leben Kids" loading="lazy" decoding="async" style="object-position:center 30%"></picture>
+      <span class="coll-cap">
+        <span class="coll-n">V</span>
+        <span class="coll-t"><em>Leben</em>Kids</span>
+        
+        <span class="coll-v">Infantil · Leve</span>
+        <span class="coll-go"><svg viewBox="0 0 26 26"><path d="M5 13h16M15 7l6 6-6 6"/></svg><b>Ver linha</b></span>
+      </span>
+    </a>
+  </div>
+  <div class="wrap colls-foot" style="padding-top:34px">
+    <p><strong>Sem pedido mínimo:</strong> você escolhe a quantidade de peças e os modelos que melhor atendem ao perfil da sua loja — reposição prática, segura e sob medida.</p>
+    <a class="mbtn" href="catalogo.html"><span class="mbtn-face">Ver catálogo</span></a>
   </div>
 </section>
 
@@ -1040,73 +1064,6 @@ section{scroll-margin-top:76px}
         <div class="p-benefit">Chega de comprar no escuro</div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- LINHAS -->
-<section id="colecao">
-  <div class="wrap coll-head" style="padding-bottom:56px">
-    <div>
-      <div class="eyebrow fade">As linhas</div>
-      <h2 class="title fade">Um portfólio completo para a sua vitrine.</h2>
-    </div>
-    <p class="lead fade">A nova linha Ateliê, armações receituário, óculos de sol e Clip On, em modelos <strong>femininos, masculinos e infantis</strong> — qualidade, design e excelente custo-benefício para todas as idades e estilos.</p>
-  </div>
-  <div class="colls fade">
-    <a class="coll" href="catalogo.html#linha-atelie" data-track="collection_open" aria-label="Ver linha Leben Ateliê">
-      <picture><source type="image/webp" srcset="img/catalogo/g19-3-600.webp 600w, img/catalogo/g19-3-1100.webp 1100w" sizes="(max-width:999px) 76vw, 20vw"><img src="img/catalogo/g19-3-1100.jpg" alt="Linha Leben Ateliê" loading="lazy" decoding="async" style="object-position:38% 50%"></picture>
-      <span class="coll-cap">
-        <span class="coll-n">I</span>
-        <span class="coll-t"><em>Leben</em>Ateliê</span>
-        <span class="coll-new">Novo</span>
-        <span class="coll-v">Receituário · Joia</span>
-        <span class="coll-go"><svg viewBox="0 0 26 26"><path d="M5 13h16M15 7l6 6-6 6"/></svg><b>Ver linha</b></span>
-      </span>
-    </a>
-    <a class="coll" href="catalogo.html#linha-sol" data-track="collection_open" aria-label="Ver linha Leben Sol">
-      <picture><source type="image/webp" srcset="img/catalogo/p06-600.webp 600w, img/catalogo/p06-1100.webp 1100w" sizes="(max-width:999px) 76vw, 20vw"><img src="img/catalogo/p06-1100.jpg" alt="Linha Leben Sol" loading="lazy" decoding="async" style="object-position:center 22%"></picture>
-      <span class="coll-cap">
-        <span class="coll-n">II</span>
-        <span class="coll-t"><em>Leben</em>Sol</span>
-        
-        <span class="coll-v">Solar · UV400</span>
-        <span class="coll-go"><svg viewBox="0 0 26 26"><path d="M5 13h16M15 7l6 6-6 6"/></svg><b>Ver linha</b></span>
-      </span>
-    </a>
-    <a class="coll" href="catalogo.html#linha-grau" data-track="collection_open" aria-label="Ver linha Leben Grau">
-      <picture><source type="image/webp" srcset="img/catalogo/cristal-1-600.webp 600w, img/catalogo/cristal-1-1100.webp 1100w" sizes="(max-width:999px) 76vw, 20vw"><img src="img/catalogo/cristal-1-1100.jpg" alt="Linha Leben Grau" loading="lazy" decoding="async" style="object-position:center 30%"></picture>
-      <span class="coll-cap">
-        <span class="coll-n">III</span>
-        <span class="coll-t"><em>Leben</em>Grau</span>
-        
-        <span class="coll-v">Feminino · Masculino</span>
-        <span class="coll-go"><svg viewBox="0 0 26 26"><path d="M5 13h16M15 7l6 6-6 6"/></svg><b>Ver linha</b></span>
-      </span>
-    </a>
-    <a class="coll" href="catalogo.html#linha-clip" data-track="collection_open" aria-label="Ver linha Leben Clip">
-      <picture><source type="image/webp" srcset="img/catalogo/magnetica-1-600.webp 600w, img/catalogo/magnetica-1-1100.webp 1100w" sizes="(max-width:999px) 76vw, 20vw"><img src="img/catalogo/magnetica-1-1100.jpg" alt="Linha Leben Clip" loading="lazy" decoding="async" style="object-position:center 35%"></picture>
-      <span class="coll-cap">
-        <span class="coll-n">IV</span>
-        <span class="coll-t"><em>Leben</em>Clip</span>
-        
-        <span class="coll-v">Grau · Solar · 2 em 1</span>
-        <span class="coll-go"><svg viewBox="0 0 26 26"><path d="M5 13h16M15 7l6 6-6 6"/></svg><b>Ver linha</b></span>
-      </span>
-    </a>
-    <a class="coll" href="catalogo.html#linha-kids" data-track="collection_open" aria-label="Ver linha Leben Kids">
-      <picture><source type="image/webp" srcset="img/catalogo/rose-1-600.webp 600w, img/catalogo/rose-1-1100.webp 1100w" sizes="(max-width:999px) 76vw, 20vw"><img src="img/catalogo/rose-1-1100.jpg" alt="Linha Leben Kids" loading="lazy" decoding="async" style="object-position:center 30%"></picture>
-      <span class="coll-cap">
-        <span class="coll-n">V</span>
-        <span class="coll-t"><em>Leben</em>Kids</span>
-        
-        <span class="coll-v">Infantil · Leve</span>
-        <span class="coll-go"><svg viewBox="0 0 26 26"><path d="M5 13h16M15 7l6 6-6 6"/></svg><b>Ver linha</b></span>
-      </span>
-    </a>
-  </div>
-  <div class="wrap colls-foot" style="padding-top:34px">
-    <p><strong>Sem pedido mínimo:</strong> você escolhe a quantidade de peças e os modelos que melhor atendem ao perfil da sua loja — reposição prática, segura e sob medida.</p>
-    <a class="mbtn" href="catalogo.html"><span class="mbtn-face">Ver catálogo</span></a>
   </div>
 </section>
 
