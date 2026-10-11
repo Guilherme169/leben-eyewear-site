@@ -594,6 +594,46 @@ html.filtering .chapter.featured .ch-mini i{background:rgba(232,200,134,.3)}
   .final{page-break-before:always;padding:70mm 0 0;height:297mm;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
   .founder{padding:14mm 14mm 0!important}
 }
+
+/* ══════════ MOBILE & iPAD — otimização (benchmark out/2026) ══════════ */
+/* toque: alvos de no mínimo 44px (Apple HIG 44pt · Material 48dp · WCAG 2.2) */
+@media(pointer:coarse){
+  .chip{min-height:44px;display:inline-flex;align-items:center}
+  .pick{width:44px;height:44px}
+  .top-link{padding:14px 0}
+  .fsearch,.ftoggle{height:44px}
+  .fchip{min-height:40px;padding:10px 15px;font-size:12.5px}
+  .fresult button,.dr-foot .mini button,.cur-panel .mini button,.ci .rm{min-height:40px;display:inline-flex;align-items:center}
+  .qty button{width:44px;height:44px}
+  .m-models button{min-height:44px}
+  .foot{line-height:2.6}.foot a{padding:8px 2px}
+  /* revelação mais curta: nada de cards "apagados" quando a rolagem é rápida */
+  .fade{transform:translateY(12px);transition:opacity .45s ease,transform .45s ease}
+  /* indicador de fotos maior e mais visível */
+  .p-dots{gap:6px;bottom:10px;padding:5px 7px;border-radius:999px;background:rgba(255,253,246,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  .p-dots i{width:6px;height:6px}
+  .p-ref{font-size:10.5px}
+  .chip b{font-size:9.5px}
+}
+@media(max-width:600px){
+  .p-ref{font-size:10px;letter-spacing:1.5px}
+  .p-info p{font-size:12px}
+  .chip b,.chip-new b{font-size:9.5px}
+}
+/* celular e iPad: topo some ao rolar para baixo e volta ao rolar para cima (mais espaço para as fotos) */
+.top,.filters{transition:transform .38s cubic-bezier(.22,1,.36,1),background .4s,padding .4s,box-shadow .4s}
+html.hdr-hide .top{transform:translateY(-100%)}
+html.hdr-hide .filters{transform:translateY(-58px)}
+@media(max-width:700px){html.hdr-hide .filters{transform:translateY(-54px)}}
+/* ficha da peça no celular/iPad: botão "Tenho interesse" sempre à mão */
+@media(max-width:820px){
+  .m-act{position:sticky;bottom:0;z-index:4;margin-top:18px;padding:12px 0 max(12px,env(safe-area-inset-bottom))}
+  .m-act::before{content:'';position:absolute;top:-14px;bottom:0;left:-22px;right:-22px;z-index:-1;background:linear-gradient(to top,var(--bg) 80%,rgba(247,242,231,0))}
+  .m-info{padding-bottom:18px}
+  .m-box{overflow-x:hidden;grid-template-columns:minmax(0,1fr)}
+  .m-thumbs button{width:56px;height:68px}
+  .m-act{gap:10px}.m-act .mbtn{min-width:0}.m-act .mbtn>span{padding-left:10px;padding-right:10px;letter-spacing:1.6px;font-size:15px;white-space:nowrap}
+}
 </style>
 </head>
 <body>
@@ -1139,7 +1179,7 @@ if(matchMedia('(hover:none)').matches){
   const medias=[...document.querySelectorAll('.p-media')].filter(m=>m.querySelector('.alt'));
   let tick=false;
   const upd=()=>{tick=false;const vh=innerHeight;
-    medias.forEach(m=>{const r=m.getBoundingClientRect();if(r.bottom<0||r.top>vh||!m.offsetParent)return;
+    medias.forEach(m=>{const r=m.getBoundingClientRect();if(r.bottom<0||r.top>vh||!m.offsetParent||m.dataset.lock)return;
       const n=m.querySelectorAll('.alt').length+1;
       /* posição do centro do card na tela: 0 = entrando por baixo, 1 = saindo por cima */
       const t=Math.min(1,Math.max(0,(vh*.92-(r.top+r.height/2))/(vh*.72)));
@@ -1302,6 +1342,33 @@ window.lebenPrintLayout=()=>{
 })();
 
 refresh();
+</script>
+
+<script>
+/* ══ celular/iPad: topo esconde ao rolar para baixo, volta ao rolar para cima ══ */
+(function(){
+  if(!matchMedia('(max-width:1180px) and (pointer:coarse)').matches)return;
+  let last=scrollY,tick=false;const H=document.documentElement;
+  const busy=()=>document.querySelector('#modal.open,.drawer.open')||!document.getElementById('fPanel')?.hidden||document.activeElement?.id==='fq';
+  addEventListener('scroll',()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{tick=false;const y=scrollY,d=y-last;
+    if(y<innerHeight*.9||busy()){H.classList.remove('hdr-hide')}
+    else if(d>8){H.classList.add('hdr-hide')}else if(d<-8){H.classList.remove('hdr-hide')}
+    last=y})},{passive:true});
+})();
+/* ══ celular/iPad: deslizar o dedo na foto troca a imagem da peça ══ */
+(function(){
+  if(!matchMedia('(hover:none)').matches)return;
+  document.querySelectorAll('.p-media').forEach(m=>{
+    const n=m.querySelectorAll('.alt').length+1;if(n<2)return;
+    let x0=null,y0=null;
+    m.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+    m.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+      if(Math.abs(dx)<36||Math.abs(dx)<Math.abs(dy)*1.3)return;
+      const cur=+(m.dataset.s||0),i=(cur+(dx<0?1:-1)+n)%n;m.dataset.s=i;m.dataset.lock='1';
+      m.querySelectorAll('.p-dots i').forEach((d,j)=>d.classList.toggle('on',j===i));
+    },{passive:true});
+  });
+})();
 </script>
 </body>
 </html>

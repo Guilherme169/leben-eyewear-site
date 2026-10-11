@@ -789,6 +789,51 @@ section{scroll-margin-top:76px}
   .mbar-wa{flex-shrink:0;width:52px;height:52px;border-radius:50%;border:1px solid rgba(210,168,92,.5);display:flex;align-items:center;justify-content:center}
   .mbar-wa svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.5}
 }
+
+/* ══════════ MOBILE & iPAD — otimização (benchmark out/2026) ══════════
+   Referências: Apple HIG 44pt · Material 48dp · WCAG 2.2 · Baymard (mobile) · NN/g  */
+.hero{overflow-x:clip}
+.brand-photo picture{display:block}
+section,footer{overflow-x:clip}
+@media(max-width:900px){
+  /* ação principal visível no primeiro toque de tela: título → botões → fotos */
+  .hero{justify-content:flex-start;padding-top:92px}
+  .hero-ctablock{order:2}
+  .hero-copy,.hero-ctablock,.hero-gallery{align-self:stretch}
+  .hero-ctas .mbtn-face{white-space:nowrap}
+  .hero-gallery{order:3;margin-top:clamp(26px,7vw,36px)}
+  .hero-feats{font-size:11px;letter-spacing:1.6px}
+  .eyebrow{font-size:11px;letter-spacing:4px}
+  .coll-new{font-size:10.5px}
+  .p-benefit{font-size:11.5px}
+  .mf-legal small,.mf-legal{font-size:11px}
+}
+@media(min-width:600px) and (max-width:900px){
+  .hero-ctas{flex-direction:row}
+  .hero-ctas .mbtn,.hero-ctas .lbtn{flex:1}
+}
+/* toque: alvos de no mínimo 44px (iPhone, Android e iPad) */
+@media(pointer:coarse){
+  .nav-links a{display:inline-flex;align-items:center;min-height:44px}
+  .mf-col li{margin-bottom:0}
+  .mf-col a{display:inline-flex;align-items:center;min-height:44px}
+  .mf-legal a,.mf-legal button{display:inline-flex;align-items:center;min-height:44px}
+  .fade{transform:translateY(16px);transition-duration:.55s}
+  /* painéis das linhas em tablet deitado (sem hover): botão sempre visível */
+  .coll-go{left:auto;right:18px;top:auto;bottom:22px;margin:0;width:56px;height:56px;opacity:1;transform:none}
+  .coll-go b{display:none}.coll-go svg{width:20px;height:20px}
+  .coll::after{background:linear-gradient(180deg,rgba(14,42,37,.7),rgba(14,42,37,.2) 40%,rgba(14,42,37,.85))}
+}
+/* barra fixa também no iPad (toque), centralizada */
+@media(min-width:701px) and (max-width:1024px) and (pointer:coarse){
+  .mbar{display:flex;gap:10px;align-items:center;position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));z-index:45;width:min(520px,calc(100% - 48px));
+    padding:8px;border-radius:999px;background:rgba(14,42,37,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(210,168,92,.35);box-shadow:0 14px 40px rgba(14,42,37,.35);transform:translate(-50%,150%);transition:transform .5s cubic-bezier(.22,1,.36,1)}
+  .mbar.show{transform:translate(-50%,0)}
+  .mbar .mbtn{flex:1}.mbar .mbtn-face{display:flex;width:100%;justify-content:center;min-height:50px}
+  .mbar-wa{flex-shrink:0;width:54px;height:54px;border-radius:50%;border:1px solid rgba(210,168,92,.5);display:flex;align-items:center;justify-content:center}
+  .mbar-wa svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.5}
+}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Leben Eyewear","legalName":"Leben Eyewear LTDA","taxID":"68.259.770/0001-97","url":"https://leben-eyewear-site.vercel.app/","email":"lebeneyewear@gmail.com","telephone":"+55 51 92003-8264","sameAs":["https://www.instagram.com/leben.eyewear/"],"address":{"@type":"PostalAddress","addressLocality":"Santo Antônio da Patrulha","addressRegion":"RS","addressCountry":"BR"}}
@@ -976,9 +1021,7 @@ section{scroll-margin-top:76px}
 <!-- A MARCA / HISTÓRIA -->
 <section id="marca">
   <div class="wrap brand-grid">
-    <div class="brand-photo fade"><img src="img/Bruna_Cardeal.jpeg"
-      sizes="(max-width:900px) 88vw, 44vw" width="720" height="960"
-      alt="Bruna Cardeal — Fundadora Leben Eyewear" loading="lazy"></div>
+    <div class="brand-photo fade"><picture><source type="image/webp" srcset="img/catalogo/fundadora-600.webp 600w, img/catalogo/fundadora-1100.webp 1100w" sizes="(max-width:900px) 88vw, 44vw"><img src="img/catalogo/fundadora-1100.jpg" width="600" height="668" alt="Bruna Cardeal — Fundadora Leben Eyewear" loading="lazy" decoding="async"></picture></div>
     <div>
       <div class="eyebrow fade">Nossa história</div>
       <h2 class="title fade">A Leben nasceu da <em>experiência real</em> de quem vive o mercado óptico todos os dias.</h2>
@@ -1354,5 +1397,10 @@ document.getElementById('leadForm').addEventListener('submit',e=>{
     </filter>
   </defs>
 </svg>
+
+<script>
+/* toque: textos de instrução certos para celular/iPad */
+if(matchMedia('(hover:none)').matches){document.querySelectorAll('.fan-hint').forEach(e=>{e.textContent=e.textContent.replace(/Clique/g,'Toque')})}
+</script>
 </body>
 </html>
