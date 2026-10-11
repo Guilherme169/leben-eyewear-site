@@ -10,9 +10,27 @@
   LEBEN EYEWEAR — antes de publicar, substituir:
   ✓ WhatsApp (51) 92003-8264 e e-mail lebeneyewear@gmail.com já aplicados
   ✓ Instagram @leben.eyewear aplicado
-  4. Link do catálogo (botão "Receber o catálogo")
+  ✓ Link do catálogo aplicado (botões "Ver catálogo")
   ════════════════════════════════════════════════════════════
 -->
+<link rel="canonical" href="https://leben-eyewear-site.vercel.app/">
+<meta name="theme-color" content="#0E2A25">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Leben Eyewear">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://leben-eyewear-site.vercel.app/">
+<meta property="og:title" content="Leben Eyewear — armações premium para óticas parceiras">
+<meta property="og:description" content="Nova linha Ateliê, solares, receituário, Clip On e Kids. Garantia certificada de 1 ano, +400 peças à pronta entrega e sem pedido mínimo.">
+<meta property="og:image" content="https://leben-eyewear-site.vercel.app/img/og/og-home.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Leben Eyewear — armações premium">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="js/leben.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -707,6 +725,50 @@ section{scroll-margin-top:76px}
   .mf-cols{grid-template-columns:1fr}
   .mf-legal{justify-content:center;text-align:center}
 }
+
+/* ══════════ LEBEN ATELIÊ — campanha na home ══════════ */
+.atelie-camp{overflow:hidden}
+.atelie-camp::before{content:'';position:absolute;right:-10%;top:-20%;width:70vmin;height:70vmin;border-radius:50%;
+  background:radial-gradient(circle,rgba(210,168,92,.14),transparent 65%);pointer-events:none}
+.ac-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center;position:relative}
+.atelie-camp h2.title{font-size:clamp(48px,6.6vw,92px);line-height:.98;letter-spacing:-.5px}
+.atelie-camp h2.title em{font-style:italic;color:var(--gold);font-weight:inherit}
+.ac-hl{list-style:none;display:flex;flex-wrap:wrap;gap:10px 0;margin-top:26px}
+.ac-hl li{font-size:10.5px;letter-spacing:2.6px;text-transform:uppercase;color:var(--cream);font-weight:500;padding:0 16px}
+.ac-hl li:first-child{padding-left:0}
+.ac-hl li+li{border-left:1px solid rgba(210,168,92,.45)}
+.ac-ctas{margin-top:34px}
+.ac-tri{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:1fr 1fr;gap:16px;height:min(560px,62vw)}
+.ac-tri figure{border-radius:6px;overflow:hidden;background:#E9E3D8;box-shadow:0 26px 60px rgba(0,0,0,.35)}
+.ac-tri .ac-a{grid-row:1/3}
+.ac-tri picture,.ac-tri img{display:block;width:100%;height:100%}
+.ac-tri img{object-fit:cover;transition:transform 1.6s cubic-bezier(.22,1,.36,1)}
+.ac-tri figure:hover img{transform:scale(1.05)}
+.drop-tag.drop-new{background:var(--green-2);color:var(--gold);border-color:var(--green-2)}
+.como-ctas{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:44px}
+.mm-cta .mm-wa{display:block;text-align:center;margin-top:16px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold)}
+@media(max-width:860px){
+  .ac-grid{grid-template-columns:1fr;gap:40px}
+  .ac-tri{height:auto;grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .ac-tri .ac-a{grid-row:auto;grid-column:1/-1;aspect-ratio:16/11}
+  .ac-tri .ac-b,.ac-tri .ac-c{aspect-ratio:3/4}
+  .ac-ctas .mbtn,.como-ctas .mbtn{display:block;width:100%}
+  .ac-ctas .mbtn-face,.como-ctas .mbtn-face{display:flex;width:100%;justify-content:center;min-height:56px}
+  .como-ctas{flex-direction:column;align-items:stretch}
+  .como-ctas .lbtn{justify-content:center;min-height:56px}
+}
+@media(max-width:600px){.ac-hl li,.ac-hl li:first-child{padding:0 12px 0 0}.ac-hl li+li{border-left:0}.ac-hl li:not(:last-child)::after{content:'·';margin-left:12px;color:var(--gold)}}
+/* barra fixa no celular */
+.mbar{display:none}
+@media(max-width:700px){
+  .mbar{display:flex;gap:10px;align-items:center;position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:45;
+    padding:8px;border-radius:999px;background:rgba(14,42,37,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(210,168,92,.35);box-shadow:0 14px 40px rgba(14,42,37,.35);transform:translateY(150%);transition:transform .5s cubic-bezier(.22,1,.36,1)}
+  .mbar.show{transform:none}
+  .mbar .mbtn{flex:1}.mbar .mbtn-face{display:flex;width:100%;justify-content:center;min-height:48px}
+  .mbar-wa{flex-shrink:0;width:52px;height:52px;border-radius:50%;border:1px solid rgba(210,168,92,.5);display:flex;align-items:center;justify-content:center}
+  .mbar-wa svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.5}
+}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Leben Eyewear","legalName":"Leben Eyewear LTDA","taxID":"68.259.770/0001-97","url":"https://leben-eyewear-site.vercel.app/","email":"lebeneyewear@gmail.com","telephone":"+55 51 92003-8264","sameAs":["https://www.instagram.com/leben.eyewear/"],"address":{"@type":"PostalAddress","addressLocality":"Santo Antônio da Patrulha","addressRegion":"RS","addressCountry":"BR"}}
@@ -728,13 +790,12 @@ section{scroll-margin-top:76px}
 <nav id="nav">
   <a class="nav-logo" href="#top">LEBEN<span>.</span></a>
   <div class="nav-links">
+    <a href="#atelie">Ateliê</a>
+    <a href="#colecao">Linhas</a>
     <a href="#marca">A marca</a>
     <a href="#garantia">Garantia</a>
-    <a href="#colecao">Coleção</a>
-    <a href="catalogo.html">Catálogo</a>
-    <a href="#lojistas">Para lojistas</a>
     <a href="#como">Como funciona</a>
-    <a class="mbtn mbtn-sm" href="https://wa.me/5551920038264?text=Ol%C3%A1!%20Tenho%20uma%20%C3%B3tica%20e%20quero%20conhecer%20a%20Leben%20Eyewear." target="_blank" rel="noopener"><span class="mbtn-face">WhatsApp</span></a>
+    <a class="mbtn mbtn-sm" href="catalogo.html"><span class="mbtn-face">Ver catálogo</span></a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Abrir menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -750,15 +811,15 @@ section{scroll-margin-top:76px}
     </button>
   </div>
   <div class="mm-eyebrow">Leben Eyewear</div>
-  <a class="mm-link" href="#top">Início<em>00</em></a>
-  <a class="mm-link" href="#marca">A marca<em>01</em></a>
-  <a class="mm-link" href="#garantia">Garantia<em>02</em></a>
-  <a class="mm-link" href="#colecao">Coleção<em>03</em></a>
-  <a class="mm-link" href="catalogo.html">Catálogo<em>✦</em></a>
+  <a class="mm-link" href="#atelie">Ateliê<em>Novo</em></a>
+  <a class="mm-link" href="#colecao">Linhas<em>01</em></a>
+  <a class="mm-link" href="#marca">A marca<em>02</em></a>
+  <a class="mm-link" href="#garantia">Garantia<em>03</em></a>
   <a class="mm-link" href="#como">Como funciona<em>04</em></a>
   <a class="mm-link" href="#parceira">Seja parceira<em>05</em></a>
   <div class="mm-cta">
-    <a class="mbtn" href="https://wa.me/5551920038264?text=Ol%C3%A1!%20Tenho%20uma%20%C3%B3tica%20e%20quero%20conhecer%20a%20Leben%20Eyewear." target="_blank" rel="noopener"><span class="mbtn-face">Falar no WhatsApp</span></a>
+    <a class="mbtn" href="catalogo.html"><span class="mbtn-face">Ver catálogo</span></a>
+    <a class="mm-wa" href="https://wa.me/5551920038264?text=Ol%C3%A1!%20Tenho%20uma%20%C3%B3tica%20e%20quero%20conhecer%20a%20Leben%20Eyewear." target="_blank" rel="noopener">ou fale no WhatsApp</a>
   </div>
   <div class="mm-foot">
     <span>Santo Antônio da Patrulha · RS</span>
@@ -782,8 +843,8 @@ section{scroll-margin-top:76px}
   <div class="hero-ctablock">
     <div class="hero-feats rise"><span>Design premium</span><i>·</i><span>Garantia de 1 ano</span><i>·</i><span>+400 peças à pronta entrega</span></div>
     <div class="hero-ctas rise">
-      <a class="mbtn" href="https://wa.me/5551920038264?text=Ol%C3%A1!%20Tenho%20uma%20%C3%B3tica%20e%20quero%20revender%20a%20Leben%20Eyewear." target="_blank" rel="noopener"><span class="mbtn-face">Quero revender Leben</span></a>
-      <a class="lbtn" href="#colecao">Ver a coleção</a>
+      <a class="mbtn" href="catalogo.html"><span class="mbtn-face">Ver catálogo</span></a>
+      <a class="lbtn" href="https://wa.me/5551920038264?text=Ol%C3%A1!%20Tenho%20uma%20%C3%B3tica%20e%20quero%20conhecer%20a%20Leben%20Eyewear." target="_blank" rel="noopener">Falar no WhatsApp</a>
     </div>
   </div>
   <div class="hero-gallery">
@@ -814,6 +875,26 @@ section{scroll-margin-top:76px}
     <span>Consultoria de sortimento <i>·</i></span>
   </div>
 </div>
+
+<!-- LEBEN ATELIÊ — campanha -->
+<section class="atelie-camp dark-band" id="atelie">
+  <div class="wrap ac-grid">
+    <div class="ac-copy">
+      <div class="eyebrow fade">Novidade · Coleção 2026</div>
+      <h2 class="title fade">Leben <em>Ateliê</em></h2>
+      <p class="lead fade">Armações receituário femininas desenhadas como joias: pedras, elos com cristais, hastes marmorizadas e a assinatura LEBEN gravada em cada peça.</p>
+      <ul class="ac-hl fade"><li>Detalhes em joia</li><li>Acetato e metal</li><li>Assinatura LEBEN</li></ul>
+      <div class="ac-ctas fade">
+        <a class="mbtn" href="catalogo.html#linha-atelie" data-track="atelie_open"><span class="mbtn-face">Conhecer o Ateliê</span></a>
+      </div>
+    </div>
+    <div class="ac-tri">
+      <figure class="ac-a fade"><picture><source type="image/webp" srcset="img/catalogo/g16-2-600.webp 600w, img/catalogo/g16-2-1100.webp 1100w" sizes="(max-width:860px) 88vw, 30vw"><img src="img/catalogo/g16-2-1100.jpg" alt="Detalhe de haste marmorizada — Leben Ateliê" loading="lazy" decoding="async" style="object-position:center"></picture></figure>
+      <figure class="ac-b fade"><picture><source type="image/webp" srcset="img/catalogo/g19-3-600.webp 600w, img/catalogo/g19-3-1100.webp 1100w" sizes="(max-width:860px) 44vw, 18vw"><img src="img/catalogo/g19-3-1100.jpg" alt="Detalhe com pérola — Leben Ateliê" loading="lazy" decoding="async" style="object-position:center"></picture></figure>
+      <figure class="ac-c fade"><picture><source type="image/webp" srcset="img/catalogo/g18-2-600.webp 600w, img/catalogo/g18-2-1100.webp 1100w" sizes="(max-width:860px) 44vw, 18vw"><img src="img/catalogo/g18-2-1100.jpg" alt="Detalhe com losango dourado — Leben Ateliê" loading="lazy" decoding="async" style="object-position:center"></picture></figure>
+    </div>
+  </div>
+</section>
 
 <!-- FAN CAROUSEL (destaque) -->
 <section class="fan-section dark-band">
@@ -925,10 +1006,10 @@ section{scroll-margin-top:76px}
     <div>
       <div class="eyebrow fade">As linhas</div>
       <h2 class="title fade">Um portfólio completo para a sua vitrine.</h2>
-      <p class="lead fade">Armações para grau, óculos de sol e Clip On, em modelos <strong>femininos, masculinos e infantis</strong> — um portfólio que une qualidade, design e excelente custo-benefício, para todas as idades e estilos.</p>
+      <p class="lead fade">A nova linha Ateliê, armações receituário, óculos de sol e Clip On, em modelos <strong>femininos, masculinos e infantis</strong> — um portfólio que une qualidade, design e excelente custo-benefício, para todas as idades e estilos.</p>
       <p class="lead fade" style="margin-top:14px"><strong>Sem pedido mínimo:</strong> você tem a liberdade de escolher a quantidade de peças e os modelos que melhor atendem ao perfil da sua loja e dos seus clientes — reposição prática, segura e sob medida.</p>
       <div class="hero-ctas fade" style="justify-content:flex-start;padding:0;margin-top:34px">
-        <a class="mbtn" href="catalogo.html"><span class="mbtn-face">Receber o catálogo</span></a>
+        <a class="mbtn" href="catalogo.html"><span class="mbtn-face">Ver catálogo</span></a>
       </div>
     </div>
     <div class="drop-card fade">
@@ -936,6 +1017,11 @@ section{scroll-margin-top:76px}
         <h3>Linhas Leben</h3>
         <p>Pronta entrega</p>
       </div>
+      <a class="drop-item" href="catalogo.html#linha-atelie">
+        <div class="drop-thumb"><picture><source type="image/webp" srcset="img/catalogo/g19-1-600.webp"><img src="img/catalogo/g19-1-1100.jpg" width="66" height="66" alt="Linha Leben Ateliê" loading="lazy" decoding="async"></picture></div>
+        <div class="drop-info"><b>Leben Ateliê</b><span>Receituário feminino com detalhes de joia</span></div>
+        <div class="drop-tag drop-new">Novo</div>
+      </a>
       <a class="drop-item" href="catalogo.html#linha-grau">
         <div class="drop-thumb"><img src="img/leben-03-480.jpg" width="66" height="66" alt="Linha Leben Grau" loading="lazy"></div>
         <div class="drop-info"><b>Leben Grau</b><span>Armações fem &amp; masc · clássicos e tendências</span></div>
@@ -996,6 +1082,10 @@ section{scroll-margin-top:76px}
       <div class="step"><h4>Fique com as peças na hora</h4><p>Pronta entrega de verdade: as peças escolhidas ficam com você, com kit completo, prontas para vender no mesmo dia.</p></div>
       <div class="step"><h4>Reposição inteligente</h4><p>Visita mensal com consultoria de sortimento: repomos o que gira e trocamos o que não girou. Parceria de verdade.</p></div>
     </div>
+    <div class="como-ctas fade">
+      <a class="mbtn" href="#agendar" data-agendar><span class="mbtn-face">Agendar visita da mala</span></a>
+      <a class="lbtn" href="catalogo.html">Ver catálogo</a>
+    </div>
   </div>
 </section>
 
@@ -1013,7 +1103,7 @@ section{scroll-margin-top:76px}
           <input class="lp-full" type="text" id="lpNome" placeholder="Seu nome" autocomplete="name" autocapitalize="words" enterkeyhint="next" required>
           <input type="text" id="lpCidade" placeholder="Cidade da sua ótica" autocomplete="address-level2" autocapitalize="words" enterkeyhint="next" required>
           <input type="tel" id="lpFone" placeholder="WhatsApp com DDD" autocomplete="tel" inputmode="tel" enterkeyhint="send" required>
-          <button type="submit" class="mbtn"><span class="mbtn-face">Quero ser ótica parceira</span></button>
+          <button type="submit" class="mbtn"><span class="mbtn-face">Quero ser parceira</span></button>
           <div class="lp-note">Resposta em até 24h · Sem pedido mínimo · Experiência satisfatória para o lojista e o cliente final.</div>
         </form>
       </div>
@@ -1052,7 +1142,8 @@ section{scroll-margin-top:76px}
         <h4>Para lojistas</h4>
         <ul>
           <li><a href="#parceira">Seja uma ótica parceira</a></li>
-          <li><a href="catalogo.html">Receber o catálogo</a></li>
+          <li><a href="catalogo.html">Ver catálogo</a></li>
+          <li><a href="#agendar" data-agendar>Agendar visita da mala</a></li>
           <li><a href="#como">Como funciona</a></li>
           <li><a href="#lojistas">Nossos diferenciais</a></li>
         </ul>
@@ -1079,6 +1170,13 @@ section{scroll-margin-top:76px}
     </div>
   </div>
 </footer>
+
+<!-- BARRA FIXA (celular) -->
+<div class="mbar" id="mbar" aria-label="Atalhos">
+  <a class="mbtn" href="catalogo.html"><span class="mbtn-face">Ver catálogo</span></a>
+  <a class="mbar-wa" href="https://wa.me/5551920038264?text=Ol%C3%A1!%20Tenho%20uma%20%C3%B3tica%20e%20quero%20conhecer%20a%20Leben%20Eyewear." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.4 7.5L3 21l2-5.6A8.5 8.5 0 1121 11.5z"/><path d="M9 9.5c.5 2.5 3 5 5.5 5.5l1-1.5-2-1-1 .5c-.8-.5-1.5-1.2-2-2l.5-1-1-2z" stroke-width="1.1"/></svg></a>
+</div>
+
 
 <script>
 /* ══════════ PRELOADER ══════════ */
@@ -1215,8 +1313,15 @@ document.getElementById('leadForm').addEventListener('submit',e=>{
   const fone=document.getElementById('lpFone').value.replace(/\D/g,'');
   if(!nome||!cidade||fone.length<10){alert('Preencha nome, cidade e um WhatsApp válido com DDD.');return}
   const msg=`Olá, Bruna! Sou ${nome}, tenho uma ótica em ${cidade} e quero ser uma ótica parceira Leben. Meu WhatsApp: ${fone}. Pode me enviar o catálogo?`;
+  if(window.lebenTrack)lebenTrack('lead_submit',{cidade});
   window.open('https://wa.me/5551920038264?text='+encodeURIComponent(msg),'_blank');
 });
+
+/* ══════════ BARRA FIXA NO CELULAR (Ver catálogo + WhatsApp) ══════════ */
+(()=>{const bar=document.getElementById('mbar'),hero=document.querySelector('.hero'),foot=document.getElementById('parceira');if(!bar)return;
+  let footIn=false;new IntersectionObserver(es=>{footIn=es[0].isIntersecting;upd()},{threshold:0}).observe(foot);
+  const upd=()=>bar.classList.toggle('show',scrollY>hero.offsetHeight*.7&&!footIn);
+  addEventListener('scroll',upd,{passive:true});upd();})();
 </script>
 
 <!-- Filtro de vidro líquido (usado pelos botões .lbtn) -->

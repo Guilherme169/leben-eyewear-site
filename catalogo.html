@@ -6,9 +6,23 @@
 <title>Catálogo Leben Eyewear — Coleção 2026 para óticas parceiras</title>
 <meta name="description" content="Catálogo Leben Eyewear para óticas parceiras: solares, armações receituário, Clip On e Kids com garantia certificada de 1 ano, mais de 400 peças à pronta entrega na mala de visitas e sem pedido mínimo. Monte sua seleção e envie pelo WhatsApp.">
 <meta name="theme-color" content="#0E2A25">
+<link rel="canonical" href="https://leben-eyewear-site.vercel.app/catalogo">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Leben Eyewear">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://leben-eyewear-site.vercel.app/catalogo">
 <meta property="og:title" content="Catálogo Leben Eyewear — Coleção 2026">
-<meta property="og:description" content="Monte sua seleção de peças Leben e receba a confirmação de estoque pelo WhatsApp.">
-<meta property="og:image" content="img/catalogo/noir-1-1100.jpg">
+<meta property="og:description" content="Ateliê, solares, receituário, Clip On e Kids. Monte sua seleção e receba a confirmação de estoque pelo WhatsApp.">
+<meta property="og:image" content="https://leben-eyewear-site.vercel.app/img/og/og-catalogo.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Catálogo Leben Eyewear — Coleção 2026">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="js/leben.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -442,6 +456,54 @@ html.curated .cover-meta b{font-size:64px}
 .cur-panel .mbtn{display:block;width:100%}.cur-panel .mbtn>span{width:100%;min-height:52px}
 .cur-panel .mini{display:flex;justify-content:space-between;margin-top:10px}
 .cur-panel .mini button{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:#E8C886;text-decoration:underline;text-underline-offset:3px}
+
+/* ══ busca e filtros ══ */
+.fbar{display:flex!important;gap:10px;align-items:center;justify-content:center!important;padding-top:0!important;padding-bottom:12px!important;overflow:visible!important}
+.fsearch{flex:1;max-width:460px;display:flex;align-items:center;gap:10px;height:42px;padding:0 16px;border:1px solid var(--line);border-radius:999px;background:var(--card);transition:border-color .3s}
+.fsearch:focus-within{border-color:var(--gold-2)}
+.fsearch svg{width:16px;height:16px;stroke:var(--gold-2);fill:none;stroke-width:1.6;flex-shrink:0}
+.fsearch input{flex:1;min-width:0;border:0;background:none;outline:none;font-family:var(--sans);font-size:16px;color:var(--ink)}
+.fsearch input::placeholder{color:#8A958F;font-size:13px;letter-spacing:.3px}
+.fsearch input::-webkit-search-cancel-button{filter:sepia(1) saturate(2) hue-rotate(-10deg)}
+.ftoggle{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--line);
+  font-size:10.5px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--ink-soft);transition:all .3s}
+.ftoggle svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6}
+.ftoggle.on,.ftoggle:hover{border-color:var(--gold-2);color:var(--ink);background:var(--card)}
+.ftoggle i[hidden]{display:none}
+.ftoggle i{font-style:normal;min-width:20px;height:20px;border-radius:999px;background:var(--green-2);color:var(--gold);font-size:10px;display:inline-flex;align-items:center;justify-content:center;letter-spacing:0}
+.fpanel{display:grid!important;gap:12px;padding-top:4px!important;padding-bottom:16px!important;max-height:52vh;overflow-y:auto!important;justify-content:stretch!important}
+.fpanel[hidden],.fresult[hidden]{display:none!important}
+.fgroup{display:flex;gap:14px;align-items:baseline}
+.fgroup[hidden]{display:none}
+.fgroup>b{flex:0 0 74px;font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;color:#9C7238;font-weight:600}
+.fchips{display:flex;flex-wrap:wrap;gap:6px}
+.fchip{padding:8px 13px;border-radius:999px;border:1px solid var(--line);font-size:11.5px;color:var(--ink-soft);background:var(--card);transition:all .25s}
+.fchip sup{font-size:8.5px;color:var(--gold-2);margin-left:3px}
+.fchip:hover{border-color:var(--gold-2);color:var(--ink)}
+.fchip.on{background:var(--green-2);border-color:var(--green-2);color:#E8C886}
+.fchip.on sup{color:#E8C886}
+.fresult{display:flex!important;align-items:center;justify-content:center!important;gap:16px;padding-top:0!important;padding-bottom:12px!important;font-size:12px;color:var(--ink-soft)}
+.fresult b{color:var(--ink);font-weight:600}
+.fresult button{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold-2);text-decoration:underline;text-underline-offset:3px;font-weight:600}
+.piece.f-out{display:none}
+.ch-mini{display:none}
+html.filtering .chapter.f-empty{display:none}
+html.filtering .ch-open,html.filtering .ft-head,html.filtering .ft-tri,html.filtering .ft-sub{display:none}
+html.filtering .chapter{padding-top:clamp(34px,5vw,56px)}
+html.filtering .chapter.featured{padding:clamp(34px,5vw,56px) 0;margin-top:clamp(20px,3vw,34px)}
+html.filtering .chapter.featured+.chapter{padding-top:clamp(34px,5vw,56px)}
+html.filtering .ch-mini{display:flex;align-items:center;gap:14px;margin-bottom:22px;font-size:10.5px;letter-spacing:3px;text-transform:uppercase;font-weight:600;color:#9C7238}
+html.filtering .ch-mini i{flex:1;height:1px;background:var(--line)}
+html.filtering .ch-mini b{font-weight:600}
+html.filtering .chapter.featured .ch-mini{color:#E8C886}
+html.filtering .chapter.featured .ch-mini i{background:rgba(232,200,134,.3)}
+@media(max-width:700px){
+  .fbar{padding-bottom:10px!important}
+  .fsearch{height:40px;padding:0 14px}
+  .ftoggle{height:40px;padding:0 13px}.ftoggle span{display:none}
+  .fgroup{flex-direction:column;gap:8px}
+  .fgroup>b{flex:none}
+}
 /* ══ IMPRESSÃO / PDF ══ */
 @media print{
   @page{size:A4;margin:0}
@@ -471,7 +533,7 @@ html.curated .cover-meta b{font-size:64px}
   .kit-photo .seal{filter:none!important}
   .cover .cover-in{padding-bottom:22mm}
   .cover h1,.cover p,.cover-meta{text-shadow:none!important}
-  body::after,.top,.filters,.selbar,.drawer,.scrim,.modal,.toast,.scroll-cue,.pick,.no-print,.cover-ctas,.final-ctas .mbtn{display:none!important}
+  body::after,.top,.filters,.ch-mini,.selbar,.drawer,.scrim,.modal,.toast,.scroll-cue,.pick,.no-print,.cover-ctas,.final-ctas .mbtn{display:none!important}
   .fade{opacity:1!important;transform:none!important}
   .cover{height:297mm;min-height:0;page-break-after:always}
   .cover img{animation:none;transform:none}
@@ -571,8 +633,19 @@ html.curated .cover-meta b{font-size:64px}
 
 <!-- FILTROS + CAPÍTULOS -->
 <div class="collection" id="colecao">
-<nav class="filters" aria-label="Linhas">
+<nav class="filters" aria-label="Linhas e filtros">
   <div class="wrap" id="filters"></div>
+  <div class="wrap fbar">
+    <label class="fsearch"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg>
+      <input id="fq" type="search" placeholder="Buscar modelo, código ou cor" autocomplete="off" enterkeyhint="search" aria-label="Buscar no catálogo"></label>
+    <button class="ftoggle" id="fToggle" type="button" aria-expanded="false" aria-controls="fPanel"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M6 10h8M8.5 15h3"/></svg><span>Filtrar</span><i id="fCount" hidden></i></button>
+  </div>
+  <div class="wrap fpanel" id="fPanel" hidden>
+    <div class="fgroup"><b>Formato</b><div class="fchips" id="fShape"></div></div>
+    <div class="fgroup"><b>Material</b><div class="fchips" id="fMat"></div></div>
+    <div class="fgroup"><b>Cor</b><div class="fchips" id="fColor"></div></div>
+  </div>
+  <div class="wrap fresult" id="fResult" hidden><span id="fResTxt"></span><button id="fClear" type="button">Limpar filtros</button></div>
 </nav>
 
 <!-- CAPÍTULOS (gerados pelo script) -->
@@ -639,15 +712,16 @@ html.curated .cover-meta b{font-size:64px}
     <ul class="facts fade"><li>Garantia certificada de 1 ano</li><li>+400 peças à pronta entrega</li><li>Sem pedido mínimo</li></ul>
     <p class="print-only print-link">Monte a sua seleção no catálogo interativo: <b>leben-eyewear-site.vercel.app/catalogo</b></p>
     <div class="final-ctas fade">
-      <button class="mbtn" id="finalOpen"><span>Revisar minha seleção</span></button>
-      <a class="gbtn" href="https://wa.me/5551920038264?text=Ol%C3%A1!%20Vi%20o%20cat%C3%A1logo%20Leben%20e%20quero%20conversar%20sobre%20a%20parceria." target="_blank" rel="noopener">Falar no WhatsApp</a>
+      <button class="mbtn" id="finalOpen"><span>Enviar minha seleção</span></button>
+      <a class="gbtn" href="index.html#agendar" data-agendar>Agendar visita da mala</a>
       <a class="gbtn no-print" href="catalogo-leben-2026.pdf" download>Baixar PDF</a>
     </div>
   </div>
   <div class="foot">
     Leben Eyewear LTDA · CNPJ 68.259.770/0001-97 · Santo Antônio da Patrulha, RS<br>
     WhatsApp <a href="https://wa.me/5551920038264" target="_blank" rel="noopener">(51) 92003-8264</a> · <a href="mailto:lebeneyewear@gmail.com">lebeneyewear@gmail.com</a> · <a href="https://www.instagram.com/leben.eyewear/" target="_blank" rel="noopener">@leben.eyewear</a><br>
-    Imagens ilustrativas · Códigos e disponibilidade sujeitos à confirmação de estoque.
+    Imagens ilustrativas · Códigos e disponibilidade sujeitos à confirmação de estoque.<br>
+    <a href="index.html">leben eyewear · site</a> · <a href="termos-garantia.html">Termos de garantia</a> · <a href="politica-privacidade.html">Privacidade</a>
   </div>
 </section>
 
@@ -655,7 +729,7 @@ html.curated .cover-meta b{font-size:64px}
 <div class="selbar" id="selbar" role="region" aria-label="Resumo da seleção">
   <div class="thumbs" id="selThumbs"></div>
   <div class="txt"><b id="selCount">0</b> <span id="selWord">peças</span> na seleção</div>
-  <button class="mbtn" id="selOpen"><span>Revisar e enviar</span></button>
+  <button class="mbtn" id="selOpen"><span>Enviar seleção</span></button>
 </div>
 
 <!-- DRAWER -->
@@ -901,7 +975,8 @@ F.addEventListener('click',e=>{
   const b=e.target.closest('.chip');if(!b)return;
   F.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b));
   document.querySelectorAll('.chapter').forEach(s=>s.classList.toggle('hide',b.dataset.f!=='all'&&s.dataset.line!==b.dataset.f));
-  const target=b.dataset.f==='all'?document.querySelector('.chapter'):document.getElementById('linha-'+b.dataset.f);
+  if(window.lebenFilterApply)lebenFilterApply(false);
+  const target=b.dataset.f==='all'?document.querySelector('.chapter:not(.f-empty)')||document.querySelector('.chapter'):document.getElementById('linha-'+b.dataset.f);
   const y=target.getBoundingClientRect().top+scrollY-120;scrollTo({top:y,behavior:'smooth'});
   target.querySelectorAll('.fade').forEach(el=>el.classList.add('on'));
 });
@@ -919,6 +994,7 @@ function paintPicks(){
 }
 function toast(html){const t=$('#toast');t.innerHTML=html;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200)}
 function setQty(code,q,silent){
+  if(q>0&&!SEL[code]&&window.lebenTrack)lebenTrack('piece_add',{code});
   if(q<=0)delete SEL[code];else SEL[code]=Math.min(q,99);
   save();refresh();
   if(!silent){const p=byCode(code);toast(q>0?`<b>${p.name}</b> adicionado à seleção`:`${p.name} removido`)}
@@ -983,6 +1059,7 @@ function buildMsg(){
 }
 $('#sendWA').addEventListener('click',()=>{
   if(!total()){toast('Escolha ao menos uma peça');return}
+  if(window.lebenTrack)lebenTrack('selection_send',{modelos:Object.keys(SEL).length,pecas:total(),curadoria:!!(CUR&&CUR.codes.length)});
   window.open(`https://wa.me/${WHATS}?text=${encodeURIComponent(buildMsg())}`,'_blank');
 });
 $('#copyList').addEventListener('click',async()=>{
@@ -991,7 +1068,7 @@ $('#copyList').addEventListener('click',async()=>{
 });
 
 /* ══ modal da peça ══ */
-let cur=null,curImg=0,mq=1;const order=()=>[...document.querySelectorAll('.chapter:not(.hide) .piece')].map(a=>a.dataset.code);
+let cur=null,curImg=0,mq=1;const order=()=>[...document.querySelectorAll('.chapter:not(.hide):not(.f-empty) .piece:not(.f-out)')].map(a=>a.dataset.code);
 function openModal(code){
   cur=byCode(code);curImg=0;mq=SEL[code]||1;
   $('#mCode').textContent=`${cur.code} · Nº ${cur.code.replace('LB-','')}`;
@@ -1093,6 +1170,7 @@ function orderLink(){
     <p class="ov-foot">Total: <b>${tot} ${tot===1?'peça':'peças'}</b> em ${items.length} ${items.length===1?'modelo':'modelos'} · Confirme o estoque e responda o cliente no WhatsApp.</p>
    </div>`;
   document.body.prepend(v);document.body.classList.add('ordering');
+  setTimeout(()=>window.lebenTrack&&lebenTrack('order_view',{pecas:tot}),800);
   document.title=`Seleção ${nome?'de '+nome:'do cliente'} — Leben Eyewear`;
   const txt=`Seleção ${nome?'de '+nome:''}${otica?' — '+otica:''}${cidade?' ('+cidade+')':''}\n`+items.map(({p,n})=>`• ${p.code} ${p.name} — ${n} un.`).join('\n')+`\nTotal: ${tot} peças`;
   $('#ovCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(txt);toast('Lista copiada')}catch(e){toast('Não foi possível copiar')}});
@@ -1151,6 +1229,53 @@ window.lebenPrintLayout=()=>{
   });
   document.documentElement.classList.add('pp');
 };
+
+/* ══ BUSCA E FILTROS (formato · material · cor) ══ */
+(()=>{
+  const norm=t=>String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+  const SHAPES=[['gatinho','Gatinho',/gatinho|cat.?eye/],['quadrado','Quadrado',/quadrad/],['retangular','Retangular',/retangul/],['redondo','Redondo',/redond|panto/],['oval','Oval',/\boval/],['borboleta','Borboleta',/borboleta/],['mascara','Máscara',/mascara/],['aviador','Aviador',/aviador|navigator/],['geometrico','Geométrico',/geometr|hexag|octog/]];
+  const MATS=[['acetato','Acetato',/acetato/],['metal','Metal',/metal|titanio/]];
+  const COLORS=[['tartaruga','Tartaruga',/tartaruga|havana/],['cristal','Cristal',/cristal|transparente|translucid/],['preto','Preto',/preto|onix/],['dourado','Dourado',/dourad/],['rose','Rosé',/rose\b|rosa\b|blush|lilas|malva/],['fume','Fumê e cinza',/fume|cinza|grafite/],['marrom','Marrom e mel',/marrom|caramelo|ambar|\bmel\b|champanhe|nude/],['bordo','Bordô',/bordo|vinho/],['azul','Azul',/azul/],['prata','Prata',/prata|prateado/]];
+  const T={};
+  PRODUCTS.forEach(p=>{const f=p.feat||{},fv=Object.values(f).join(' ');
+    const shapeTxt=norm(p.short+' '+(f.Formato||'')),matTxt=norm((f.Material||'')+' '+p.short+' '+p.desc),colTxt=norm(p.name+' '+p.short+' '+(f.Material||'')+' '+(f.Cor||''));
+    T[p.code]={all:norm([p.code,p.code.replace('LB-',''),p.name,p.short,p.desc,fv,lineName(p.line)].join(' ')),
+      shape:SHAPES.filter(x=>x[2].test(shapeTxt)).map(x=>x[0]),mat:MATS.filter(x=>x[2].test(matTxt)).map(x=>x[0]),color:COLORS.filter(x=>x[2].test(colTxt)).map(x=>x[0])}});
+  const st={q:'',shape:new Set(),mat:new Set(),color:new Set()};
+  const chips=(el,list,key)=>{const counts=list.map(x=>[x,PRODUCTS.filter(p=>T[p.code][key].includes(x[0])).length]).filter(c=>c[1]>0);
+    el.innerHTML=counts.map(([x,n])=>`<button type="button" class="fchip" data-k="${key}" data-v="${x[0]}" aria-pressed="false">${x[1]}<sup>${n}</sup></button>`).join('');
+    el.closest('.fgroup').hidden=!counts.length};
+  chips($('#fShape'),SHAPES,'shape');chips($('#fMat'),MATS,'mat');chips($('#fColor'),COLORS,'color');
+  const panel=$('#fPanel'),tog=$('#fToggle');
+  tog.addEventListener('click',()=>{const o=panel.hidden;panel.hidden=!o;tog.setAttribute('aria-expanded',o);tog.classList.toggle('on',o)});
+  const active=()=>!!st.q||st.shape.size+st.mat.size+st.color.size>0;
+  const match=c=>{const t=T[c];if(!t)return true;
+    if(st.q&&!st.q.split(/\s+/).every(w=>t.all.includes(w)))return false;
+    for(const k of ['shape','mat','color'])if(st[k].size&&![...st[k]].some(v=>t[k].includes(v)))return false;
+    return true};
+  let trackT;
+  window.lebenFilterApply=(scroll=true)=>{
+    let n=0;
+    document.querySelectorAll('.chapter').forEach(sec=>{let v=0;
+      sec.querySelectorAll('.piece').forEach(a=>{const ok=match(a.dataset.code);a.classList.toggle('f-out',!ok);if(ok){v++;a.classList.add('on')}});
+      sec.classList.toggle('f-empty',v===0);const mini=sec.querySelector('.ch-mini b');if(mini)mini.textContent=v;
+      if(!sec.classList.contains('hide'))n+=v});
+    const on=active();document.documentElement.classList.toggle('filtering',on);
+    const cnt=st.shape.size+st.mat.size+st.color.size,ci=$('#fCount');ci.hidden=!cnt;ci.textContent=cnt;
+    $('#fResult').hidden=!on;$('#fResTxt').innerHTML=n?`<b>${n}</b> ${n===1?'modelo encontrado':'modelos encontrados'}`:'Nenhum modelo com esses filtros';
+    if(on&&scroll){const top=$('#colecao').getBoundingClientRect().top+scrollY-8;if(scrollY>top)scrollTo({top,behavior:'smooth'})}
+    clearTimeout(trackT);if(on)trackT=setTimeout(()=>window.lebenTrack&&lebenTrack('catalog_filter',{q:st.q,formato:[...st.shape].join(','),material:[...st.mat].join(','),cor:[...st.color].join(','),resultados:n}),1200);
+  };
+  document.querySelectorAll('.chapter').forEach(sec=>{const L=LINES.find(l=>l.id===sec.dataset.line);if(!L)return;
+    const m=document.createElement('div');m.className='ch-mini';m.innerHTML=`<span>Leben ${L.name}</span><i></i><b>0</b>`;
+    sec.querySelector('.grid').before(m)});
+  $('#filters').parentElement.addEventListener('click',e=>{const b=e.target.closest('.fchip');if(!b)return;
+    const set=st[b.dataset.k],v=b.dataset.v;set.has(v)?set.delete(v):set.add(v);b.setAttribute('aria-pressed',set.has(v));b.classList.toggle('on',set.has(v));lebenFilterApply()});
+  let qt;$('#fq').addEventListener('input',e=>{clearTimeout(qt);qt=setTimeout(()=>{st.q=norm(e.target.value.trim());lebenFilterApply()},160)});
+  $('#fq').addEventListener('keydown',e=>{if(e.key==='Enter')e.target.blur()});
+  $('#fClear').addEventListener('click',()=>{st.q='';$('#fq').value='';['shape','mat','color'].forEach(k=>st[k].clear());
+    document.querySelectorAll('.fchip').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-pressed','false')});lebenFilterApply()});
+})();
 
 refresh();
 </script>
