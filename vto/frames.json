@@ -1,0 +1,104 @@
+{
+"LB-G62": {
+"name": "Cacau",
+"img": "vto/frames/g62.webp",
+"lens": "vto/frames/g62-lens.webp",
+"w": 900,
+"h": 327,
+"lc": [
+224.6,
+160.7
+],
+"rc": [
+671.1,
+159.8
+],
+"lh": 252.1,
+"dbc": 70
+},
+"LB-G63": {
+"name": "Ébano",
+"img": "vto/frames/g63.webp",
+"lens": "vto/frames/g63-lens.webp",
+"w": 900,
+"h": 270,
+"lc": [
+231.3,
+128.8
+],
+"rc": [
+667.6,
+129.3
+],
+"lh": 214.4,
+"dbc": 70
+},
+"LB-G67": {
+"name": "Conhaque",
+"img": "vto/frames/g67.webp",
+"lens": "vto/frames/g67-lens.webp",
+"w": 900,
+"h": 341,
+"lc": [
+226.2,
+168.6
+],
+"rc": [
+672.5,
+169.7
+],
+"lh": 271.4,
+"dbc": 70
+},
+"LB-G68": {
+"name": "Marsala",
+"img": "vto/frames/g68.webp",
+"lens": "vto/frames/g68-lens.webp",
+"w": 900,
+"h": 310,
+"lc": [
+233.3,
+146.8
+],
+"rc": [
+669.4,
+147.2
+],
+"lh": 248.6,
+"dbc": 70
+},
+"LB-G73": {
+"name": "Jaspe",
+"img": "vto/frames/g73.webp",
+"lens": "vto/frames/g73-lens.webp",
+"w": 900,
+"h": 330,
+"lc": [
+226.4,
+162.2
+],
+"rc": [
+672.6,
+169.0
+],
+"lh": 253.0,
+"dbc": 70
+},
+"LB-G75": {
+"name": "Romã",
+"img": "vto/frames/g75.webp",
+"lens": "vto/frames/g75-lens.webp",
+"w": 900,
+"h": 328,
+"lc": [
+224.4,
+163.0
+],
+"rc": [
+675.6,
+162.6
+],
+"lh": 251.6,
+"dbc": 70
+}
+}
