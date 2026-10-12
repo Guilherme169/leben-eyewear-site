@@ -12,9 +12,10 @@
 (function () {
   'use strict';
   var BASE = (document.currentScript && document.currentScript.src.replace(/js\/provador\.js.*$/, '')) || '/';
-  var FACE_MM = 145, IPD_MM = 63;   // médias de adultos (largura bizigomática ≈ 140–150 mm)
+  var FRAME_MM = 140, FIT_FACE = 1.08, FIT_EYE = 1.62, FIT_IPD = 2.45;   // encaixe para rostos adultos
   var FR = null;           // catálogo de armações (frames.json)
   var S = {};              // estado
+  try { S.adj = +localStorage.getItem('lebenVtoAdj') || 1; } catch (x) { S.adj = 1; }
   var vision = null, lm = null, lmMode = null;
 
   function track(n, d) { try { window.lebenTrack && window.lebenTrack(n, d || {}); } catch (e) {} }
@@ -76,6 +77,10 @@
   '.vto-want.on{background:#E8C886;color:#0E2A25;border-color:#E8C886}' +
   '.vto-btn{display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:999px;border:0;cursor:pointer;font:600 15px "Cormorant Garamond",Georgia,serif;letter-spacing:2.2px;text-transform:uppercase;background:linear-gradient(to bottom,#EED9A4,#C49A55 55%,#A87F3F);color:#221806;box-shadow:0 4px 14px rgba(0,0,0,.25);padding:0 22px}' +
   '.vto-btn.ghost{background:transparent;border:1px solid rgba(243,237,211,.5);color:#F3EDD3;box-shadow:none;font:600 11px Montserrat,sans-serif;letter-spacing:2.2px}' +
+  '.vto-size{position:absolute;right:16px;top:calc(84px + env(safe-area-inset-top));z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px;border-radius:999px;background:rgba(11,35,31,.5);border:1px solid rgba(232,200,134,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}' +
+  '.vto-size button{width:42px;height:42px;border-radius:50%;border:0;background:transparent;color:#F3EDD3;font:400 24px/1 Montserrat,sans-serif;cursor:pointer}' +
+  '.vto-size button:active{background:rgba(232,200,134,.25)}' +
+  '.vto-size small{font-size:8.5px;letter-spacing:1.6px;text-transform:uppercase;color:#E8C886;writing-mode:vertical-rl;transform:rotate(180deg);padding:4px 0}' +
   '.vto-flash{position:absolute;inset:0;z-index:6;background:#fff;opacity:0;pointer-events:none}' +
   '.vto-flash.go{animation:vtoFlash .5s ease}' +
   '.vto-prev{position:absolute;inset:0;z-index:7;background:rgba(11,35,31,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:max(20px,env(safe-area-inset-top)) 20px max(20px,env(safe-area-inset-bottom));opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}' +
@@ -108,6 +113,7 @@
       '<div class="vto-ttl"><small>Provador virtual</small><b id="vtoName">Leben</b><i id="vtoCode"></i></div>' +
       '<button class="vto-ib" data-a="photo" aria-label="Usar uma foto">' + IC.img + '</button></div>' +
       '<div class="vto-msg" id="vtoMsg"></div>' +
+      '<div class="vto-size"><button data-a="big" aria-label="Aumentar armação">+</button><small>Tamanho</small><button data-a="small" aria-label="Diminuir armação">−</button></div>' +
       '<div class="vto-hint" id="vtoHint">Posicione o rosto no centro</div>' +
       '<div class="vto-bot"><div class="vto-rail" id="vtoRail"></div>' +
       '<div class="vto-ctl"><span class="l"></span><button class="vto-shot" data-a="shot" aria-label="Tirar foto"><i></i></button>' +
@@ -217,7 +223,11 @@
     var yaw = Math.acos(c2) * (dr >= dl ? 1 : -1);     // + = rosto virado para a direita da tela
     var roll = Math.atan2(pr.y - pl.y, pr.x - pl.x);
     /* escala real (px por mm): largura do rosto em 3D (não muda ao girar) + distância pupilar 3D */
-    var ppm = 0.75 * (d3(fl, frt) / FACE_MM) + 0.25 * (d3(pl, pr) / IPD_MM);
+    /* largura-alvo da armação (px): encaixe pelo rosto — a frente da armação acompanha a largura da
+       face na altura dos olhos (contorno 3D) e a largura entre os cantos externos dos olhos; usa o maior,
+       compensando a perspectiva da câmera de selfie (que "encolhe" as laterais do rosto) */
+    var fit = Math.max(FIT_FACE * d3(fl, frt), FIT_EYE * d3(P(33), P(263)), FIT_IPD * d3(pl, pr));
+    var ppm = fit / FRAME_MM;
     var bridge = P(168);
     var mid = { x: (pl.x + pr.x) / 2, y: (pl.y + pr.y) / 2 };
     var ear = { l: P(127), r: P(356) };
@@ -227,8 +237,7 @@
 
   function drawFrame(ctx, f, ps, now, still) {
     var t = now || performance.now();
-    var dbcPx = (f.rc[0] - f.lc[0]);
-    var sc = (f.dbc * ps.ppm * (S.adj || 1)) / dbcPx;
+    var sc = (FRAME_MM * ps.ppm * (S.adj || 1)) / (f.w * 0.978);   // armação inteira = largura-alvo
     var cx = lerp(ps.mid.x, ps.bridge.x, 0.6), cy = ps.mid.y;
     var sm = still ? { x: cx, y: cy, s: sc, r: ps.roll, yaw: ps.yaw } : { x: F.x.f(cx, t), y: F.y.f(cy, t), s: F.s.f(sc, t), r: F.r.f(ps.roll, t), yaw: F.yaw.f(ps.yaw, t) };
     var yaw = sm.yaw, cyaw = Math.cos(yaw);
@@ -401,6 +410,12 @@
     else if (a === 'photo') $('#vtoFile', S.el).click();
     else if (a === 'cam') camFlow();
     else if (a === 'shot') { if (S.mode === 'photo' && !S.pres) return; capture(); }
+    else if (a === 'big' || a === 'small') {
+      S.adj = clamp((S.adj || 1) * (a === 'big' ? 1.04 : 1 / 1.04), 0.8, 1.35);
+      try { localStorage.setItem('lebenVtoAdj', S.adj.toFixed(3)); } catch (x) {}
+      if (S.mode === 'photo') renderPhoto();
+      track('vto_size', { adj: +S.adj.toFixed(2) });
+    }
     else if (a === 'back') closePrev();
     else if (a === 'share') share();
     else if (a === 'save') save();

@@ -1407,7 +1407,7 @@ window.lebenVTOClosed=()=>{if($('#modal').classList.contains('open'))paintModal(
         const b=document.createElement('span');b.className='p-vto';b.innerHTML=ICON+'<span>Provador</span>';a.querySelector('.p-media').appendChild(b)}});
       document.querySelectorAll('.vto-cta').forEach(b=>{b.hidden=false;b.addEventListener('click',()=>lebenVTO.open())});
       const tryB=$('#mTry');tryB.addEventListener('click',()=>{if(cur)lebenVTO.open(cur.code)});
-      let warm=false;const warmUp=()=>{if(warm)return;warm=true;const r=()=>['vision_wasm_internal.wasm','face_landmarker.task'].forEach(f=>fetch('vto/engine/'+f).catch(()=>{}));(window.requestIdleCallback||setTimeout)(r,1500)};
+      let warm=false;const warmUp=()=>{if(warm)return;warm=true;const r=()=>['vision_wasm_internal.wasm','face_landmarker.task'].forEach(f=>fetch('vto/engine/'+f).catch(()=>{}));window.requestIdleCallback?requestIdleCallback(r,{timeout:4000}):setTimeout(r,1500)};
       const paint=()=>{const ok=!!(cur&&lebenVTO.has(cur.code));tryB.hidden=!ok;if(ok&&!(navigator.connection&&navigator.connection.saveData))warmUp()};
       const _o=openModal;window.openModal=openModal=function(c){_o(c);paint()};paint();
       if(/[?&#]provador/.test(location.href))lebenVTO.open();
