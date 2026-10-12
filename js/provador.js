@@ -12,7 +12,7 @@
 (function () {
   'use strict';
   var BASE = (document.currentScript && document.currentScript.src.replace(/js\/provador\.js.*$/, '')) || '/';
-  var FRAME_MM = 140, FIT_FACE = 1.08, FIT_EYE = 1.62, FIT_IPD = 2.45;   // encaixe para rostos adultos
+  var FRAME_MM = 140, FIT_FACE = 1.0, FIT_EYE = 1.52, FIT_IPD = 2.28;   // armação ≈ largura do rosto na altura dos olhos (adultos)
   var FR = null;           // catálogo de armações (frames.json)
   var S = {};              // estado
   try { S.adj = +localStorage.getItem('lebenVtoAdj') || 1; } catch (x) { S.adj = 1; }
@@ -59,7 +59,7 @@
   '.vto-msg p{font-size:13px;line-height:1.65;color:#B4C3BC;margin-top:10px}' +
   '.vto-msg .acts{pointer-events:auto;display:flex;flex-direction:column;gap:10px;margin-top:22px}' +
   '.vto-oval{position:absolute;left:50%;top:44%;width:min(62vw,300px);aspect-ratio:3/4;transform:translate(-50%,-50%);border:1.5px dashed rgba(232,200,134,.55);border-radius:50%;z-index:2;pointer-events:none;transition:opacity .5s}' +
-  '.vto-hint{position:absolute;left:50%;bottom:calc(196px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:3;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#F3EDD3;background:rgba(11,35,31,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:9px 16px;border-radius:999px;white-space:nowrap;transition:opacity .4s;pointer-events:none}' +
+  '.vto-hint{position:absolute;left:50%;bottom:calc(244px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:3;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#F3EDD3;background:rgba(11,35,31,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:9px 16px;border-radius:999px;white-space:nowrap;transition:opacity .4s;pointer-events:none}' +
   '.vto-bot{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:0 0 max(16px,env(safe-area-inset-bottom))}' +
   '.vto-rail{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 16px 14px;scrollbar-width:none;justify-content:safe center}' +
   '.vto-rail::-webkit-scrollbar{display:none}' +
@@ -81,6 +81,11 @@
   '.vto-size button{width:42px;height:42px;border-radius:50%;border:0;background:transparent;color:#F3EDD3;font:400 24px/1 Montserrat,sans-serif;cursor:pointer}' +
   '.vto-size button:active{background:rgba(232,200,134,.25)}' +
   '.vto-size small{font-size:8.5px;letter-spacing:1.6px;text-transform:uppercase;color:#E8C886;writing-mode:vertical-rl;transform:rotate(180deg);padding:4px 0}' +
+  '.vto-lens{display:flex;justify-content:center;gap:4px;margin:0 auto 10px;padding:4px;width:max-content;border-radius:999px;background:rgba(11,35,31,.55);border:1px solid rgba(232,200,134,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}' +
+  '.vto-lens button{height:36px;padding:0 16px;border-radius:999px;border:0;background:transparent;color:#D7DED9;font:600 10px Montserrat,sans-serif;letter-spacing:1.8px;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:8px}' +
+  '.vto-lens button i{width:12px;height:12px;border-radius:50%;border:1px solid rgba(255,255,255,.6)}' +
+  '.vto-lens button[data-a=lens-clear] i{background:rgba(214,226,220,.5)}.vto-lens button[data-a=lens-sun] i{background:linear-gradient(#3a3027,#5e5040)}' +
+  '.vto-lens button.on{background:#F3EDD3;color:#0E2A25}' +
   '.vto-flash{position:absolute;inset:0;z-index:6;background:#fff;opacity:0;pointer-events:none}' +
   '.vto-flash.go{animation:vtoFlash .5s ease}' +
   '.vto-prev{position:absolute;inset:0;z-index:7;background:rgba(11,35,31,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:max(20px,env(safe-area-inset-top)) 20px max(20px,env(safe-area-inset-bottom));opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}' +
@@ -115,7 +120,7 @@
       '<div class="vto-msg" id="vtoMsg"></div>' +
       '<div class="vto-size"><button data-a="big" aria-label="Aumentar armação">+</button><small>Tamanho</small><button data-a="small" aria-label="Diminuir armação">−</button></div>' +
       '<div class="vto-hint" id="vtoHint">Posicione o rosto no centro</div>' +
-      '<div class="vto-bot"><div class="vto-rail" id="vtoRail"></div>' +
+      '<div class="vto-bot"><div class="vto-lens" role="group" aria-label="Tipo de lente"><button data-a="lens-clear" class="on"><i></i>Lente clara</button><button data-a="lens-sun"><i></i>Lente solar</button></div><div class="vto-rail" id="vtoRail"></div>' +
       '<div class="vto-ctl"><span class="l"></span><button class="vto-shot" data-a="shot" aria-label="Tirar foto"><i></i></button>' +
       '<span class="r"><button class="vto-want" data-a="want">' + IC.bag + '<span>Tenho interesse</span></button></span></div>' +
       '<div class="vto-note">' + IC.lock + 'A imagem é processada no seu aparelho e não é enviada. Tamanho aproximado — confirme na ótica.</div></div>' +
@@ -140,7 +145,7 @@
     }).join('');
   }
 
-  function msg(html) { var m = $('#vtoMsg'); if (!html) { m.hidden = true; return; } m.innerHTML = html; m.hidden = false; }
+  function msg(html) { var m = $('#vtoMsg'); clearTimeout(S.msgT); if (!html) { m.hidden = true; S.msgT = setTimeout(function () { if (m.hidden) m.innerHTML = ''; }, 450); return; } m.innerHTML = html; m.hidden = false; }
   function hint(t) { var h = $('#vtoHint'); h.textContent = t || ''; h.style.opacity = t ? 1 : 0; }
 
   /* ── armações: imagem, sombra, reflexo, cor da haste ── */
@@ -150,24 +155,59 @@
     f._ready = Promise.all([loadImg(BASE + f.img), loadImg(BASE + f.lens)]).then(function (r) {
       var im = r[0], lens = r[1], w = im.naturalWidth, h = im.naturalHeight;
       f.im = im;
+      function cnv(W, H) { var c = document.createElement('canvas'); c.width = W; c.height = H; return c; }
       // sombra de contato: silhueta reduzida (blur barato e compatível com Safari)
-      var k = 10, sc = document.createElement('canvas'); sc.width = Math.ceil(w / k); sc.height = Math.ceil(h / k);
-      var sx = sc.getContext('2d'); sx.drawImage(im, 0, 0, sc.width, sc.height); sx.globalCompositeOperation = 'source-in'; sx.fillStyle = '#1a0f08'; sx.fillRect(0, 0, sc.width, sc.height);
-      var s2 = document.createElement('canvas'); s2.width = Math.ceil(w / 4); s2.height = Math.ceil(h / 4);
-      var x2 = s2.getContext('2d'); x2.imageSmoothingQuality = 'high'; x2.drawImage(sc, 0, 0, s2.width, s2.height); f.shadow = s2;
-      // reflexo nas lentes: gradiente recortado pela máscara das lentes
-      var rc = document.createElement('canvas'); rc.width = w; rc.height = h; var rx = rc.getContext('2d');
-      var g = rx.createLinearGradient(0, 0, w * 0.55, h); g.addColorStop(0, 'rgba(255,255,255,.34)'); g.addColorStop(0.38, 'rgba(255,255,255,.06)'); g.addColorStop(0.55, 'rgba(255,255,255,0)'); g.addColorStop(0.8, 'rgba(255,255,255,.08)'); g.addColorStop(1, 'rgba(255,255,255,0)');
-      rx.fillStyle = g; rx.fillRect(0, 0, w, h); rx.globalCompositeOperation = 'destination-in';
-      // máscara: luminância → alfa
-      var mc = document.createElement('canvas'); mc.width = w; mc.height = h; var mx = mc.getContext('2d'); mx.drawImage(lens, 0, 0, w, h);
-      var md = mx.getImageData(0, 0, w, h), p = md.data; for (var i = 0; i < p.length; i += 4) { p[i + 3] = p[i]; } mx.putImageData(md, 0, 0);
-      rx.drawImage(mc, 0, 0); f.refl = rc;
-      // cor média das bordas laterais → hastes
-      var cc = document.createElement('canvas'); cc.width = 40; cc.height = 16; var cx = cc.getContext('2d'); cx.drawImage(im, 0, 0, 40, 16);
-      var cd = cx.getImageData(0, 0, 40, 16).data, R = 0, G = 0, B = 0, n = 0;
-      for (var y = 0; y < 16; y++) for (var x = 0; x < 40; x++) { if (x > 5 && x < 34) continue; var o = (y * 40 + x) * 4; if (cd[o + 3] < 200) continue; R += cd[o]; G += cd[o + 1]; B += cd[o + 2]; n++; }
-      f.tc = n ? [R / n | 0, G / n | 0, B / n | 0] : [40, 25, 20];
+      var sc = cnv(Math.ceil(w / 10), Math.ceil(h / 10)), sx = sc.getContext('2d');
+      sx.drawImage(im, 0, 0, sc.width, sc.height); sx.globalCompositeOperation = 'source-in'; sx.fillStyle = '#1a0f08'; sx.fillRect(0, 0, sc.width, sc.height);
+      var s2 = cnv(Math.ceil(w / 4), Math.ceil(h / 4)); s2.getContext('2d').drawImage(sc, 0, 0, s2.width, s2.height); f.shadow = s2;
+      // máscara das lentes (luminância → alfa) e versão desfocada (para a borda interna do vidro)
+      var mc = cnv(w, h), mx = mc.getContext('2d'); mx.drawImage(lens, 0, 0, w, h);
+      var md = mx.getImageData(0, 0, w, h), p = md.data; for (var i = 0; i < p.length; i += 4) { p[i + 3] = p[i]; p[i] = p[i + 1] = p[i + 2] = 255; } mx.putImageData(md, 0, 0);
+      var bs = cnv(Math.ceil(w / 14), Math.ceil(h / 14)); bs.getContext('2d').drawImage(mc, 0, 0, bs.width, bs.height);
+      var bl = cnv(w, h), bx = bl.getContext('2d'); bx.imageSmoothingQuality = 'high'; bx.drawImage(bs, 0, 0, w, h);
+      function lensLayer(paint, edge) {
+        var c = cnv(w, h), x = c.getContext('2d'); paint(x);
+        x.globalCompositeOperation = 'destination-in'; x.drawImage(mc, 0, 0);
+        if (edge) { // sombreado na borda interna: vidro com espessura
+          var e = cnv(w, h), ex = e.getContext('2d'); ex.drawImage(mc, 0, 0); ex.globalCompositeOperation = 'destination-out'; ex.drawImage(bl, 0, 0); ex.drawImage(bl, 0, 0);
+          ex.globalCompositeOperation = 'source-in'; ex.fillStyle = edge; ex.fillRect(0, 0, w, h);
+          x.globalCompositeOperation = 'source-over'; x.drawImage(e, 0, 0);
+        }
+        return c;
+      }
+      var Lt = Math.min(f.lc[1], f.rc[1]) - f.lh / 2, Lb = Lt + f.lh;
+      // lente de demonstração (clara): leve verde-acinzentado do vidro + borda + reflexo diagonal
+      f.lensClear = lensLayer(function (x) {
+        var g = x.createLinearGradient(0, Lt, 0, Lb); g.addColorStop(0, 'rgba(196,214,206,.20)'); g.addColorStop(1, 'rgba(176,196,188,.12)');
+        x.fillStyle = g; x.fillRect(0, 0, w, h);
+        var r = x.createLinearGradient(w * 0.05, Lt, w * 0.45, Lb); r.addColorStop(0, 'rgba(255,255,255,.30)'); r.addColorStop(0.3, 'rgba(255,255,255,.07)'); r.addColorStop(0.42, 'rgba(255,255,255,.16)'); r.addColorStop(0.5, 'rgba(255,255,255,0)'); r.addColorStop(1, 'rgba(255,255,255,.05)');
+        x.fillStyle = r; x.fillRect(0, 0, w, h);
+      }, 'rgba(40,52,48,.30)');
+      // lente solar: degradê marrom-acinzentado (mais escuro em cima), reflexo suave
+      f.lensSun = lensLayer(function (x) {
+        var g = x.createLinearGradient(0, Lt, 0, Lb); g.addColorStop(0, 'rgba(48,40,32,.86)'); g.addColorStop(1, 'rgba(78,66,52,.70)');
+        x.fillStyle = g; x.fillRect(0, 0, w, h);
+        var r = x.createLinearGradient(w * 0.05, Lt, w * 0.45, Lb); r.addColorStop(0, 'rgba(255,255,255,.22)'); r.addColorStop(0.35, 'rgba(255,255,255,.04)'); r.addColorStop(0.45, 'rgba(255,255,255,.10)'); r.addColorStop(0.55, 'rgba(255,255,255,0)');
+        x.fillStyle = r; x.fillRect(0, 0, w, h);
+      }, 'rgba(20,16,12,.35)');
+      // dobradiça: altura e espessura reais da armação na ponta lateral (procura na imagem)
+      var ac = cnv(w, h), ax2 = ac.getContext('2d'); ax2.drawImage(im, 0, 0); var ad = ax2.getImageData(0, 0, w, h).data;
+      function band(x0) { var ys = []; for (var y = 0; y < h; y++) if (ad[(y * w + x0) * 4 + 3] > 140) ys.push(y); return ys; }
+      var ysL = band(Math.round(w * 0.035)), ysR = band(Math.round(w * 0.965)), ys = ysL.concat(ysR);
+      ys.sort(function (a, b) { return a - b; });
+      var top = ys.length ? ys[Math.floor(ys.length * 0.08)] : h * 0.12, bot = ys.length ? ys[Math.floor(ys.length * 0.5)] : h * 0.35;
+      f.hy = (top + Math.min(bot, top + h * 0.22)) / 2; f.ht = clamp((Math.min(bot, top + h * 0.22) - top) * 0.62, h * 0.045, h * 0.11);
+      // textura da haste: faixa da barra superior da armação (mesmo acetato), esticada e afinando até a ponta
+      var ty0 = Math.max(0, Math.round(top + 2)), th = Math.max(6, Math.round(f.ht * 1.2));
+      var tex = cnv(512, 48), tx = tex.getContext('2d');
+      tx.drawImage(im, Math.round(w * 0.08), ty0, Math.round(w * 0.3), th, 0, 0, 512, 48);
+      tx.globalCompositeOperation = 'destination-in';
+      var tp = tx.createLinearGradient(0, 0, 512, 0); tp.addColorStop(0, 'rgba(0,0,0,1)'); tp.addColorStop(0.82, 'rgba(0,0,0,1)'); tp.addColorStop(1, 'rgba(0,0,0,0)');
+      tx.fillStyle = tp; tx.beginPath(); tx.moveTo(0, 0); tx.lineTo(512, 14); tx.lineTo(512, 34); tx.lineTo(0, 48); tx.closePath(); tx.fill();
+      tx.globalCompositeOperation = 'source-over';
+      var hl = tx.createLinearGradient(0, 0, 0, 48); hl.addColorStop(0, 'rgba(255,255,255,.22)'); hl.addColorStop(0.35, 'rgba(255,255,255,0)'); hl.addColorStop(1, 'rgba(0,0,0,.22)');
+      tx.globalCompositeOperation = 'source-atop'; tx.fillStyle = hl; tx.fillRect(0, 0, 512, 48);
+      f.temple = tex;
       return f;
     });
     return f._ready;
@@ -226,7 +266,8 @@
     /* largura-alvo da armação (px): encaixe pelo rosto — a frente da armação acompanha a largura da
        face na altura dos olhos (contorno 3D) e a largura entre os cantos externos dos olhos; usa o maior,
        compensando a perspectiva da câmera de selfie (que "encolhe" as laterais do rosto) */
-    var fit = Math.max(FIT_FACE * d3(fl, frt), FIT_EYE * d3(P(33), P(263)), FIT_IPD * d3(pl, pr));
+    var est = [FIT_FACE * d3(fl, frt), FIT_EYE * d3(P(33), P(263)), FIT_IPD * d3(pl, pr)].sort(function (a, b) { return a - b; });
+    var fit = est[1];   // mediana: robusta a um ponto mal detectado
     var ppm = fit / FRAME_MM;
     var bridge = P(168);
     var mid = { x: (pl.x + pr.x) / 2, y: (pl.y + pr.y) / 2 };
@@ -243,38 +284,37 @@
     var yaw = sm.yaw, cyaw = Math.cos(yaw);
     var ax = (f.lc[0] + f.rc[0]) / 2, ay = (f.lc[1] + f.rc[1]) / 2 - f.lh * 0.06;   // pupila levemente acima do centro da lente
     var w = f.w, h = f.h;
+    var k = 0.11 * Math.sin(Math.abs(yaw)), hL = yaw > 0 ? 1 - k : 1 + k, hR = yaw > 0 ? 1 + k : 1 - k;   // lado revelado pelo giro = mais próximo
     ctx.save();
     ctx.translate(sm.x, sm.y); ctx.rotate(sm.r);
-    // hastes: aparecem do lado que o rosto revela ao girar
-    var vis = clamp((Math.abs(yaw) - 0.12) / 0.25, 0, 1);
-    if (vis > 0.01) {
-      var side = yaw > 0 ? 1 : -1;                 // lado da tela que o giro revela (haste visível)
-      var hx = side * (w / 2) * sm.s * cyaw * 0.985, hy = (-ay + h * 0.32) * sm.s;
-      var earP = side < 0 ? ps.ear.l : ps.ear.r;
-      var ex = (earP.x - sm.x), ey = (earP.y - sm.y);
-      var ca = Math.cos(-sm.r), sa = Math.sin(-sm.r), ex2 = ex * ca - ey * sa, ey2 = ex * sa + ey * ca;
-      var th = Math.max(3, h * 0.085 * sm.s);
-      var c = f.tc, gr = ctx.createLinearGradient(hx, hy, ex2, ey2);
-      gr.addColorStop(0, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (0.95 * vis) + ')');
-      gr.addColorStop(0.85, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (0.85 * vis) + ')');
-      gr.addColorStop(1, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',0)');
-      ctx.beginPath(); ctx.moveTo(hx, hy - th / 2); ctx.lineTo(ex2, ey2 - th * 0.28); ctx.lineTo(ex2, ey2 + th * 0.28); ctx.lineTo(hx, hy + th / 2); ctx.closePath();
-      ctx.fillStyle = gr; ctx.fill();
-      ctx.globalAlpha = 0.35 * vis; ctx.strokeStyle = 'rgba(255,255,255,.5)'; ctx.lineWidth = Math.max(1, th * 0.12);
-      ctx.beginPath(); ctx.moveTo(hx, hy - th * 0.32); ctx.lineTo(ex2, ey2 - th * 0.2); ctx.stroke(); ctx.globalAlpha = 1;
+    /* hastes: saem da dobradiça (altura real da armação), com a textura do próprio acetato,
+       e seguem até a orelha; aparecem conforme o rosto gira */
+    var ca = Math.cos(-sm.r), sa = Math.sin(-sm.r);
+    function temple(side) {
+      var vis = clamp((Math.abs(yaw) - 0.06) / 0.22, 0, 1) * (side === (yaw > 0 ? 1 : -1) ? 1 : 0);
+      if (vis < 0.02) return;
+      var hs = side < 0 ? hL : hR;
+      var hx = (side < 0 ? (w * 0.012 - ax) : (w * 0.988 - ax)) * sm.s * cyaw, hy = (f.hy - ay) * sm.s * hs;
+      var e = side < 0 ? ps.ear.l : ps.ear.r, ex = e.x - sm.x, ey = e.y - sm.y;
+      var ex2 = ex * ca - ey * sa, ey2 = ex * sa + ey * ca + (f.ht * sm.s * 0.6);
+      var dx = ex2 - hx, dy = ey2 - hy, len = Math.hypot(dx, dy); if (len < 4) return;
+      var th = f.ht * sm.s * hs * 1.5;
+      ctx.save(); ctx.globalAlpha = vis; ctx.translate(hx, hy); ctx.rotate(Math.atan2(dy, dx));
+      ctx.drawImage(f.temple, -th * 0.15, -th / 2, len * 1.04, th);
+      ctx.restore();
     }
+    temple(-1); temple(1);
     ctx.scale(sm.s * cyaw, sm.s * (1 - 0.04 * Math.abs(yaw)));
     // sombra de contato (deslocada para baixo, suave)
-    ctx.globalAlpha = 0.26; ctx.drawImage(f.shadow, -ax - w * 0.01, -ay + h * 0.07, w * 1.02, h);
-    ctx.globalAlpha = 1;
+    ctx.globalAlpha = 0.24; ctx.drawImage(f.shadow, -ax - w * 0.01, -ay + h * 0.07, w * 1.02, h);
     /* perspectiva: a metade mais próxima da câmera fica um pouco maior */
-    var k = 0.11 * Math.sin(Math.abs(yaw)), hL = yaw > 0 ? 1 - k : 1 + k, hR = yaw > 0 ? 1 + k : 1 - k;
     function half(img, a) {
       ctx.globalAlpha = a;
       ctx.drawImage(img, 0, 0, ax, h, -ax, -ay * hL, ax, h * hL);
       ctx.drawImage(img, ax, 0, w - ax, h, 0, -ay * hR, w - ax, h * hR);
     }
-    half(f.im, 1); half(f.refl, 0.55); ctx.globalAlpha = 1;
+    half(S.lens === 'sun' ? f.lensSun : f.lensClear, 1);
+    half(f.im, 1); ctx.globalAlpha = 1;
     ctx.restore();
   }
 
@@ -415,6 +455,12 @@
       try { localStorage.setItem('lebenVtoAdj', S.adj.toFixed(3)); } catch (x) {}
       if (S.mode === 'photo') renderPhoto();
       track('vto_size', { adj: +S.adj.toFixed(2) });
+    }
+    else if (a === 'lens-clear' || a === 'lens-sun') {
+      S.lens = a === 'lens-sun' ? 'sun' : 'clear';
+      S.el.querySelectorAll('.vto-lens button').forEach(function (x) { x.classList.toggle('on', x === b); });
+      if (S.mode === 'photo') renderPhoto();
+      track('vto_lens', { lens: S.lens });
     }
     else if (a === 'back') closePrev();
     else if (a === 'share') share();
