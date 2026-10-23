@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://leben-eyewear-site.vercel.app/sitemap.xml
+Sitemap: https://www.lebeneyewear.com.br/sitemap.xml
